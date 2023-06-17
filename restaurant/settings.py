@@ -13,6 +13,8 @@ import os
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
+from dotenv import load_dotenv
+import cloudinary    
 
 from pathlib import Path
 
@@ -31,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-q6ebii2awgj.ws-us100.gitpod.io', 'restaurant-reservations-system-5f0577a30c22.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-ggwzeicopnt.ws-us100.gitpod.io', 'localhost']
 
 
 # Application definition
@@ -60,6 +62,21 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'restaurant.urls'
+
+load_dotenv()
+
+cloudinary.config( 
+  cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+  api_key=os.getenv('CLOUDINARY_API_KEY'),
+  api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
+
 
 TEMPLATES = [
     {

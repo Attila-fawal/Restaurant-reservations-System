@@ -1,0 +1,126 @@
+{% load static %}
+{% load cloudinary %}
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Our Restaurant</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-flex-row">
+            <li class="nav-item">
+                <a href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/reservation/new/">Reservation</a>
+            </li>
+            <li class="nav-item">
+                <a href="/tables/">Tables</a>
+            </li>
+        </ul>
+    </nav>
+
+    <section class="section-intro">
+        <header>
+            <h1>Welcome to Our Restaurant</h1>
+        </header>
+        <div class="link-to-book-wrapper">
+            <a class="link-to-book" href="/reservation/new/">Make a Reservation</a>
+        </div>
+    </section>
+
+    <section class="about-section">
+        <article>
+            <h3>
+                Experience the finest dining in the city.
+            </h3>
+            <p>
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                A quos, voluptatum illum mollitia dolores libero placeat
+                nesciunt quasi adipisci impedit!Lorem ipsum dolor sit,
+                amet consectetur adipisicing elit.
+                A quos, voluptatum illum mollitia dolores libero placeat
+                nesciunt quasi adipisci impedit!
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                A quos, voluptatum illum mollitia dolores libero placeat
+                nesciunt quasi adipisci impedit!Lorem ipsum dolor sit.
+            </p>
+        </article>
+    </section>
+
+    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-interval="2000">
+                <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028011/ddx0anr9bqhnnugbszcx.jpg"
+                    alt="food" class="d-block w-100">
+            </div>
+            <div class="carousel-item" data-interval="2000">
+                <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028503/h922bcrpm6ptorynnz1l.jpg"
+                    class="d-block w-100" alt="food">
+            </div>
+            <div class="carousel-item" data-interval="2000">
+                <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028599/lajn3dh2kox7swrfienx.jpg"
+                    class="d-block w-100" alt="food">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row-flex">
+            <div class="flex-column-form">
+                <h3>
+                    Make a Reservation
+                </h3>
+                <p>
+                    Please leave your details and we will contact you to confirm the reservation.
+                </p>
+                <form class="media-centered">
+                    <div class="form-group">
+                        <input type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp"
+                            placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" id="exampleInputphoneNumber1"
+                            placeholder="Enter your phone number">
+                    </div>
+                    <a href="/reservation/new/" class="btn btn-primary">Make a Reservation</a>
+                </form>
+            </div>
+
+            <div class="contact-adress">
+                <h3>
+                    Contact
+                </h3>
+                <p>
+                    <span>(123) 456-7890</span>
+                    <span>123 Main Street</span>
+                    <span>Anytown, 12345</span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

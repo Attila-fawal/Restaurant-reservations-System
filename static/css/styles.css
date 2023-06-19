@@ -1,5 +1,29 @@
 @import url('https://fonts.googleapis.com/css?family=Big+Shoulders+Text:100,300,400,500,600,700,800,900&display=swap');
 
+body {
+    overflow-x: hidden;
+}
+
+
+h2 {
+    font-size: 3rem;
+    color: rgba(27, 2, 37, 0.833);
+
+}
+
+.contact-adress {
+    display: inline;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.contact-item {
+    flex-basis: 10%;
+
+}
+
+
+
 
 .nav-flex-row {
     display: flex;
@@ -21,12 +45,14 @@
 .nav-flex-row li a {
     font-family: 'Big Shoulders Text', cursive;
     color: #ffffff;
-    font-size: 1.5em;
+    font-size: 2.0em;
     text-transform: uppercase;
     font-weight: 300;
+
 }
 
 .section-intro {
+    position: relative;
     height: 820px;
     background-image: url(https://res.cloudinary.com/dweybbjex/image/upload/v1687027797/oaergprtye0e45fvk0fr.jpg);
     background-size: cover;
@@ -34,14 +60,42 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    animation: section-zoom 10s infinite alternate;
 }
+
+.section-intro::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
+@keyframes section-zoom {
+    0% {
+        transform: scale(1);
+    }
+
+    100% {
+        transform: scale(1.1);
+    }
+}
+
+
 
 .section-intro h1 {
     text-align: center;
     color: #ffffff;
     font-size: 4em;
     font-weight: 700;
+    position: relative;
+    z-index: 2;
 }
+
 
 .section-intro header {
     display: flex;
@@ -53,13 +107,30 @@
 
 .link-to-book-wrapper {
     flex: 1;
+    position: relative;
+    z-index: 2;
 }
 
 .about-section {
     display: flex;
     align-items: center;
-    background-color: #f3f3f3c0;
-    padding: 50px 30px;
+    background-color: #ffffff;
+    padding: 20px 20px;
+}
+
+/* Keyframe Animation */
+@keyframes button-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.1);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .link-to-book {
@@ -67,26 +138,30 @@
     display: block;
     border: 2px solid #ffffff;
     padding: 5px 10px;
+    transition: all 0.3s ease;
+    animation: button-animation 2s ease-in-out infinite;
 }
 
 a.link-to-book:hover {
-    background-color: #ffffff;
-    color: #95999e;
+    background-color: rgba(27, 2, 37, 0.833);
+    color: #ffffff;
     text-decoration: none;
 }
 
-.about-section p,
-.about-section h3 {
-    text-align: center;
-    width: 60%;
-    margin: auto;
-    font-family: 'Big Shoulders Text', cursive;
-    font-size: 1.8em;
-    text-transform: uppercase;
+.carousel-item {
+    height: 700px;
+    overflow: hidden;
 }
+
+.carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
+
 
 .carousel-inner {
     height: 700px;
+
 }
 
 .row-flex {
@@ -95,7 +170,6 @@ a.link-to-book:hover {
 }
 
 .flex-column-form {
-    display: flex;
     flex-direction: column;
     flex: 1;
     margin: 30px 20px;
@@ -103,28 +177,28 @@ a.link-to-book:hover {
 
 .btn.btn-primary {
     font-family: 'Big Shoulders Text', cursive;
-    color: #ffffff;
-    background-color: #95999e;
+    color: #000000;
+    background-color: #ffffff;
     text-transform: uppercase;
-    font-size: 16px;
-    padding: 5px 10px;
+    font-size: 25px;
+    padding: 15px 15px;
     letter-spacing: 2px;
     border: 0;
 }
 
 .btn.btn-primary:hover {
-    background-color: #747474;
+    background-color: #c0c0c0;
 }
 
 .opening-time,
 .contact-adress {
     flex: 1;
-    margin: 30px 20px;
     font-size: 1.2em;
 }
 
 .form-group p {
     font-size: 1.2em;
+    color: #ffffff;
 }
 
 .opening-time p span,
@@ -132,15 +206,83 @@ a.link-to-book:hover {
     display: block;
 }
 
-@media (min-width:577px) and (max-width: 800px) {
+.content-heading {
+    flex-grow: 1;
+    padding: 20px;
+    border: 6px solid #ffffff;
+    margin-bottom: 20px;
+    background-color: rgba(27, 2, 37, 0.833);
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+}
+
+.content-heading h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.content-heading p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.footer {
+    background-color: rgba(27, 2, 37, 0.833);
+
+}
+
+.social-networks i {
+    font-size: 200%;
+    margin: 1%;
+    padding: 5%;
+    color: #ffffff;
+}
+
+.social-networks {
+    text-align: center;
+}
+
+.social-networks>li {
+    display: inline;
+}
+
+.info-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: auto;
+    margin: auto;
+}
+
+
+@media screen and (max-width: 800px) {
 
     .section-intro {
         height: 500px;
     }
 
-    .about-section p,
-    .about-section h3 {
-        font-size: 20px;
+    .content-heading {
+        padding: 15px;
+    }
+
+    .content-heading h2 {
+        font-size: 25px;
+    }
+
+    .content-heading p {
+        font-size: 18px;
+    }
+
+
+    .about-section {
+        padding: 3em;
+        display: block;
+        width: 100%;
     }
 
     .carousel-inner {
@@ -148,27 +290,36 @@ a.link-to-book:hover {
     }
 
     .row-flex {
-        display: flex;
-        flex-direction: column;
+        display: block;
     }
 }
 
-@media screen and (max-width: 576px) {
+
+@media screen and (max-width: 500px) {
     .section-intro {
         height: 300px;
-    }
-
-    .about-section {
-        padding: 30px;
     }
 
     .section-intro h1 {
         font-size: 2em;
     }
 
-    .about-section p,
-    .about-section h3 {
-        font-size: 15px;
+    .about-section {
+        padding: 3em;
+        display: block;
+        width: 100%;
+    }
+
+    .content-heading {
+        padding: 10px;
+    }
+
+    .content-heading h2 {
+        font-size: 20px;
+    }
+
+    .content-heading p {
+        font-size: 16px;
     }
 
     .carousel-inner {
@@ -194,5 +345,4 @@ a.link-to-book:hover {
         font-size: 15px;
         text-align: center;
     }
-
 }

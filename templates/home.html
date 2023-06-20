@@ -1,178 +1,88 @@
-{% load static %}
-{% load cloudinary %}
+{% extends "base.html" %}
+
+{% block title %}
+Home - Our Restaurant
+{% endblock %}
+
+{% block content %}
+<section class="section-intro">
+    <header>
+        <h1>Welcome to Restaurant</h1>
+    </header>
+    <div class="link-to-book-wrapper">
+        <a class="link-to-book" href="/reservation/new/">Make a Reservation</a>
+    </div>
+</section>
 
 
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Our Restaurant</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/styles.css">
-</head>
-
-<body>
-    <nav>
-        <ul class="nav-flex-row">
-            <li class="nav-item">
-                <a href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/reservation/new/">Reservation</a>
-            </li>
-            <li class="nav-item">
-                <a href="/tables/">Tables</a>
-            </li>
-        </ul>
-    </nav>
-
-    <section class="section-intro">
-        <header>
-            <h1>Welcome to Restaurant</h1>
-        </header>
-        <div class="link-to-book-wrapper">
-            <a class="link-to-book" href="/reservation/new/">Make a Reservation</a>
-        </div>
-    </section>
+<div class="container text-center">
+    <h2 class="my-5">
+        Reservation for
+    </h2>
+</div>
 
 
-    <div class="container text-center">
-        <h2 class="my-5">
-            Reservation for
-        </h2>
+<section class="about-section">
+    <div id="topp-about-heading" class="content-heading">
+        <h2>Events <i class="fa-solid fa-martini-glass"></i></h2>
+        <p>From grand inaugurations to intimate gatherings, events bring people together in memorable ways.
+            These
+            moments can be vibrant and lively, creating an opportunity for individuals to connect, learn, and
+            grow.
+            Events can include everything from cultural festivals, concerts, and art exhibitions to sporting
+            events
+            and community activities. In all scenarios, events serve as a catalyst for experiences that
+            transcend
+            the ordinary, leaving lasting memories and deepening human connection.</p>
+    </div>
+    <div id="mid-about-heading" class="content-heading">
+        <h2>Wedding <i class="fa-regular fa-heart"></i></h2>
+        <p>A wedding is a momentous occasion, a cherished ceremony that unites two individuals in marriage. It's a
+            celebration of love, commitment, and the promise of a shared future. This beautiful event, steeped in
+            tradition and cultural significance, is often marked by various customs and rituals. From the exchange
+            of vows, the wearing of rings, to the joyous gathering of friends and family, weddings symbolize not
+            just the unity of two people, but the blending of two families, and in many ways, it is a reflection of
+            the couple's shared values, cultural heritage, and personal style.</p>
+    </div>
+    <div id="botom-about-heading" class="content-heading">
+        <h2>Business meetings <i class="fa-regular fa-handshake"></i></h2>
+        <p>Business meetings are essential platforms for collaborative decision-making and problem-solving. They
+            serve as a stage where ideas can be proposed, debated, and refined, driving innovation and productivity
+            within organizations. From weekly team huddles and project discussions to annual general meetings and
+            international conferences, business meetings take many forms. Each one has its unique dynamics and
+            requirements, but all share the same objective: to facilitate communication, foster relationships, and
+            propel organizations towards their strategic goals.</p>
     </div>
 
+</section>
 
-    <section class="about-section">
-        <div id="topp-about-heading" class="content-heading">
-            <h2>Events <i class="fa-solid fa-martini-glass"></i></h2>
-            <p>From grand inaugurations to intimate gatherings, events bring people together in memorable ways.
-                These
-                moments can be vibrant and lively, creating an opportunity for individuals to connect, learn, and
-                grow.
-                Events can include everything from cultural festivals, concerts, and art exhibitions to sporting
-                events
-                and community activities. In all scenarios, events serve as a catalyst for experiences that
-                transcend
-                the ordinary, leaving lasting memories and deepening human connection.</p>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-interval="2000">
+            <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028011/ddx0anr9bqhnnugbszcx.jpg" alt="food"
+                class="d-block w-100">
         </div>
-        <div id="mid-about-heading" class="content-heading">
-            <h2>Wedding <i class="fa-regular fa-heart"></i></h2>
-            <p>A wedding is a momentous occasion, a cherished ceremony that unites two individuals in marriage. It's a
-                celebration of love, commitment, and the promise of a shared future. This beautiful event, steeped in
-                tradition and cultural significance, is often marked by various customs and rituals. From the exchange
-                of vows, the wearing of rings, to the joyous gathering of friends and family, weddings symbolize not
-                just the unity of two people, but the blending of two families, and in many ways, it is a reflection of
-                the couple's shared values, cultural heritage, and personal style.</p>
+        <div class="carousel-item" data-interval="2000">
+            <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028503/h922bcrpm6ptorynnz1l.jpg"
+                class="d-block w-100" alt="food">
         </div>
-        <div id="botom-about-heading" class="content-heading">
-            <h2>Business meetings <i class="fa-regular fa-handshake"></i></h2>
-            <p>Business meetings are essential platforms for collaborative decision-making and problem-solving. They
-                serve as a stage where ideas can be proposed, debated, and refined, driving innovation and productivity
-                within organizations. From weekly team huddles and project discussions to annual general meetings and
-                international conferences, business meetings take many forms. Each one has its unique dynamics and
-                requirements, but all share the same objective: to facilitate communication, foster relationships, and
-                propel organizations towards their strategic goals.</p>
+        <div class="carousel-item" data-interval="2000">
+            <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028599/lajn3dh2kox7swrfienx.jpg"
+                class="d-block w-100" alt="food">
         </div>
-
-    </section>
-
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-interval="2000">
-                <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028011/ddx0anr9bqhnnugbszcx.jpg"
-                    alt="food" class="d-block w-100">
-            </div>
-            <div class="carousel-item" data-interval="2000">
-                <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028503/h922bcrpm6ptorynnz1l.jpg"
-                    class="d-block w-100" alt="food">
-            </div>
-            <div class="carousel-item" data-interval="2000">
-                <img src="https://res.cloudinary.com/dweybbjex/image/upload/v1687028599/lajn3dh2kox7swrfienx.jpg"
-                    class="d-block w-100" alt="food">
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 
-    <div class="container text-center">
-        <h2 class="my-5">
-            Make a Reservation
-        </h2>
-    </div>
-
-    <footer class="footer text-white py-2 mt-3">
-        <div class="container text-center">
-            <div class="flex-column-form">
-                <a href="/reservation/new/" class="btn btn-primary">Reservation!</a>
-            </div>
-
-            <div class="info-container">
-                <div class="opening-time">
-                    <h3>Opening Time <i class="fa-regular fa-calendar-days"></i>
-
-                    </h3>
-                    <p>
-                        <span class="contact-item">Mon-Fri: 9:00 AM - 5:00 PM</span>
-                        <span class="contact-item">Sat: 10:00 AM - 4:00 PM</span>
-                        <span class="contact-item">Sun: Closed</span>
-                    </p>
-                </div>
-                <h1><i class="fa-solid fa-utensils fa-beat-fade"></i></h1>
-                <div class="contact-adress">
-                    <h3>
-                        Contact <i class="fa-solid fa-location-dot"></i>
-                    </h3>
-                    <p>
-                        <span class="contact-item">(123) 456-7890</span>
-                        <span class="contact-item">123 Main Street</span>
-                        <span class="contact-item">Anytown, 12345</span>
-                    </p>
-                </div>
-            </div>
-
-            <ul class="social-networks">
-                <li>
-                    <a href="https://facebook.com" target="_blank" rel="noopener"
-                        aria-label="Visit our Facebook page (opens in a new tab)"><i
-                            class="fa-brands fa-facebook"></i></a>
-                </li>
-                <li>
-                    <a href="https://twitter.com" target="_blank" rel="noopener"
-                        aria-label="Visit our Twitter page (opens in a new tab)"><i
-                            class="fab fa-twitter-square"></i></a>
-                </li>
-                <li>
-                    <a href="https://youtube.com" target="_blank" rel="noopener"
-                        aria-label="Visit our YouTube page (opens in a new tab)"><i
-                            class="fab fa-youtube-square"></i></a>
-                </li>
-                <li>
-                    <a href="https://instagram.com" target="_blank" rel="noopener"
-                        aria-label="Visit our Instagram page (opens in a new tab)"><i class="fab fa-instagram"></i></a>
-                </li>
-            </ul>
-            <p class="mb-0">© 2023 Our Restaurant. All rights reserved.</p>
-        </div>
-    </footer>
-
-    </div>
-    <script src="https://kit.fontawesome.com/fac7d3549a.js" crossorigin="anonymous"></script>
-    <!-- jQuery library -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
-</body>
-
-</html>
+<div class="container text-center">
+    <h2 class="my-5">
+        Make a Reservation
+    </h2>
+</div>{% endblock %}

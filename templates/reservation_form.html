@@ -1,69 +1,37 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Reserve a Table</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+{% block title %}
+Home - Our Restaurant
+{% endblock %}
 
-<body>
-    <nav>
-        <ul class="nav-flex-row">
-            <li class="nav-item">
-                <a href="/">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/reservation/new/">Reservation</a>
-            </li>
-            <li class="nav-item">
-                <a href="/tables/">Tables</a>
-            </li>
-        </ul>
-    </nav>
+{% block content %}
 
-    <header class="bg-dark text-white p-5">
-        <h1 class="text-center">Reserve a Table</h1>
+<section class="section-intro">
+    <header>
+        <h2>Reserve Your Seat</h2>
     </header>
+</section>
 
-    <section class="section-intro">
-        <header>
-            <h2>Reserve Your Seat</h2>
-        </header>
-    </section>
-
-    <div class="container">
-        <div class="row-flex">
-            <div class="flex-column-form">
-                <h3>
-                    Make a Reservation
-                </h3>
-                <p>
-                    Please fill out the form below and we will contact you to confirm the reservation.
-                </p>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form.as_p }}
-                    <button type="submit" class="btn btn-primary">Make a Reservation</button>
-                </form>
-            </div>
-
-            <div class="contact-address">
-                <h3>
-                    Contact
-                </h3>
-                <p>
-                    <span>(123) 456-7890</span>
-                    <span>123 Main Street</span>
-                    <span>Anytown, 12345</span>
-                </p>
-            </div>
+<div class="container">
+    <div class="row-flex">
+        <div class="flex-column-form">
+            <h3>
+                Make a Reservation
+            </h3>
+            <p>
+                Please fill out the form below and we will contact you to confirm the reservation.
+            </p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Make a Reservation</button>
+            </form>
         </div>
-    </div>
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    </div>
+</div>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
-</html>
+</html>{% endblock %}

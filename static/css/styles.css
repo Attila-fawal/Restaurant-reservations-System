@@ -233,18 +233,22 @@ a.link-to-book:hover {
 
 .footer {
     background-color: rgba(27, 2, 37, 0.833);
-
 }
+
 
 .social-networks i {
     font-size: 200%;
     margin: 1%;
     padding: 5%;
     color: #ffffff;
+    padding-top: 1%;
+    padding-bottom: 1%;
 }
 
 .social-networks {
     text-align: center;
+    margin: 0%;
+    padding: 0%
 }
 
 .social-networks>li {

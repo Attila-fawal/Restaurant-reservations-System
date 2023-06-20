@@ -1,38 +1,39 @@
-{% load static %}
-{% load cloudinary %}
+{% extends "base.html" %}
 
+{% block title %}
+Home - Our Restaurant
+{% endblock %}
 
-<!DOCTYPE html>
-<html>
+{% block content %}
 
-<head>
-    <title>Our Tables</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
+<header class="bg-dark text-white p-5">
+    <h1 class="text-center">Your Reservations</h1>
+</header>
 
-<body>
-    <header class="bg-dark text-white p-5">
-        <h1 class="text-center">Our Tables</h1>
-    </header>
-    <main class="container py-5">
-        <div class="row">
-            {% for table in tables %}
-            <div class="col-md-4 mb-4">
-                <div class="card">
-                    <img src="{{ table.image.url }}" class="card-img-top" alt="Table {{ table.number }}">
-                    <div class="card-body">
-                        <h5 class="card-title">Table {{ table.number }}</h5>
-                        <p class="card-text">{{ table.description }}</p>
-                        <a href="#" class="btn btn-primary">Reserve this table</a>
-                    </div>
+<main class="container py-5">
+    <div class="row">
+        {% for reservation in reservations %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reservation {{ reservation.pk }}</h5>
+                    <p class="card-text">Date: {{ reservation.date }}</p>
+                    <p class="card-text">Time: {{ reservation.time }}</p>
+                    <p class="card-text">Guests: {{ reservation.guests }}</p>
+
+                    <!-- Add the cancellation form here -->
+                    <form method="post" action="{% url 'reservation_cancel' reservation.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="Cancel Reservation">
+                    </form>
                 </div>
             </div>
-            {% endfor %}
         </div>
-    </main>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+        {% endfor %}
+    </div>
+</main>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
-</html>
+</html>{% endblock %}

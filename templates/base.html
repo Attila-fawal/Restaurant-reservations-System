@@ -1,0 +1,101 @@
+{% load static %}
+{% load cloudinary %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    {% block extra_style %}{% endblock %}
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-flex-row">
+            <li class="nav-item">
+                <a href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/reservation/new/">Reservation</a>
+            </li>
+            <li class="nav-item">
+                <a href="/tables/">Tables</a>
+            </li>
+        </ul>
+    </nav>
+
+    {% block content %}{% endblock %}
+
+    <footer class="footer text-white py-2 mt-3">
+        <footer class="footer text-white py-2 mt-3">
+            <div class="container text-center">
+                <div class="flex-column-form">
+                    <a href="/reservation/new/" class="btn btn-primary">Reservation!</a>
+                </div>
+
+                <div class="info-container">
+                    <div class="opening-time">
+                        <h3>Opening Time <i class="fa-regular fa-calendar-days"></i>
+
+                        </h3>
+                        <p>
+                            <span class="contact-item">Mon-Fri: 9:00 AM - 5:00 PM</span>
+                            <span class="contact-item">Sat: 10:00 AM - 4:00 PM</span>
+                            <span class="contact-item">Sun: Closed</span>
+                        </p>
+                    </div>
+                    <h1><i class="fa-solid fa-utensils fa-beat-fade"></i></h1>
+                    <div class="contact-adress">
+                        <h3>
+                            Contact <i class="fa-solid fa-location-dot"></i>
+                        </h3>
+                        <p>
+                            <span class="contact-item">(123) 456-7890</span>
+                            <span class="contact-item">123 Main Street</span>
+                            <span class="contact-item">Anytown, 12345</span>
+                        </p>
+                    </div>
+                </div>
+
+                <ul class="social-networks">
+                    <li>
+                        <a href="https://facebook.com" target="_blank" rel="noopener"
+                            aria-label="Visit our Facebook page (opens in a new tab)"><i
+                                class="fa-brands fa-facebook"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com" target="_blank" rel="noopener"
+                            aria-label="Visit our Twitter page (opens in a new tab)"><i
+                                class="fab fa-twitter-square"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://youtube.com" target="_blank" rel="noopener"
+                            aria-label="Visit our YouTube page (opens in a new tab)"><i
+                                class="fab fa-youtube-square"></i></a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" target="_blank" rel="noopener"
+                            aria-label="Visit our Instagram page (opens in a new tab)"><i
+                                class="fab fa-instagram"></i></a>
+                    </li>
+                </ul>
+                <p class="mb-0">© 2023 Our Restaurant. All rights reserved.</p>
+            </div>
+        </footer>
+    </footer>
+
+    <script src="https://kit.fontawesome.com/fac7d3549a.js" crossorigin="anonymous"></script>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    {% block extra_script %}{% endblock %}
+</body>
+
+</html>

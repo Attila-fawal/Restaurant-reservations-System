@@ -41,7 +41,12 @@ def make_reservation(request):
     if request.method == 'POST':
         form = ReservationForm(request.POST)
         if form.is_valid():
-            form.save()
+            reservation = form.save(commit=False)  # Temporarily save reservation without committing to db
+            tables = form.cleaned_data.get('tables')
+            # Save tables after reservation instance is created
+            reservation.save()
+            reservation.tables.set(tables)
+            reservation.save()
             return redirect('/reservation/new/')
         else:
             # If form is invalid, re-render the form with error messages
@@ -49,3 +54,4 @@ def make_reservation(request):
     else:
         form = ReservationForm()
         return render(request, 'reservation_form.html', {'form': form})
+

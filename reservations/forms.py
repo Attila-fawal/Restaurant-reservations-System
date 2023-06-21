@@ -14,12 +14,15 @@ class ReservationForm(forms.ModelForm):
         # Access the tables related to the reservation
         tables = cleaned_data.get('tables')
 
-        if tables:
-            # Calculate the total capacity of the tables
-            total_capacity = sum(table.capacity for table in tables)
+        if not tables:
+            raise forms.ValidationError("No tables selected for the reservation.")
+            # Or handle this case differently if you prefer
 
-            if guests > total_capacity:
-                raise forms.ValidationError("The number of guests exceeds the tables' capacity.")
+        # Calculate the total capacity of the tables
+        total_capacity = sum(table.capacity for table in tables)
+
+        if guests > total_capacity:
+            raise forms.ValidationError("The number of guests exceeds the tables' capacity.")
 
         # Check for double booking
         if any(table.reservation_set.filter(date=cleaned_data.get('date'), time=cleaned_data.get('time')).exists() for table in tables):

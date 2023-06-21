@@ -21,13 +21,27 @@ Home - Our Restaurant
             <p>
                 Please fill out the form below and we will contact you to confirm the reservation.
             </p>
-            <form method="post">
+            <form method="post" class="reservation-form">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Make a Reservation</button>
+                <div class="form-group">
+                    <p>Name:</p>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <p>Number of People:</p>
+                    <input type="number" id="people" name="people" min="1" required class="small-input">
+                </div>
+                <div class="form-group">
+                    <p>Date:</p>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <p>Time:</p>
+                    <input type="time" id="time" name="time" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Confirm Reservation Details</button>
             </form>
         </div>
-
     </div>
 </div>
 

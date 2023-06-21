@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
+from datetime import datetime
 
 
 class Customer(models.Model):
@@ -39,4 +40,4 @@ class Reservation(models.Model):
 class Booking(models.Model):
     reservation = models.OneToOneField(Reservation, on_delete=models.CASCADE)
     table = models.ForeignKey(Table, on_delete=models.CASCADE)
-    time_slot = models.DateTimeField()  # or separate fields for date and time
+    time_slot = models.DateTimeField(default=datetime.now)

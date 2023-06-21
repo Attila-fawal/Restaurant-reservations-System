@@ -22,6 +22,9 @@ h2 {
 
 }
 
+.flex-column-form h3 {
+    font-size: 50px;
+}
 
 
 
@@ -85,7 +88,14 @@ h2 {
     }
 }
 
-
+.section-intro h2 {
+    text-align: center;
+    color: #ffffff;
+    font-size: 4em;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+}
 
 .section-intro h1 {
     text-align: center;
@@ -165,14 +175,13 @@ a.link-to-book:hover {
 }
 
 .row-flex {
-    display: flex;
     flex-direction: row;
 }
 
 .flex-column-form {
     flex-direction: column;
     flex: 1;
-    margin: 30px 20px;
+    margin: 60px 10px;
 }
 
 .btn.btn-primary {
@@ -180,7 +189,7 @@ a.link-to-book:hover {
     color: #000000;
     background-color: #ffffff;
     text-transform: uppercase;
-    font-size: 25px;
+    font-size: 35px;
     padding: 15px 15px;
     letter-spacing: 2px;
     border: 0;
@@ -263,6 +272,30 @@ a.link-to-book:hover {
     margin: auto;
 }
 
+.reservation-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.form-group p {
+    margin-right: 10px;
+    color: rgba(27, 2, 37, 0.833);
+    font-weight: bold;
+}
+
+.small-input {
+    width: 50px;
+}
+
+
+
 
 @media screen and (max-width: 800px) {
 
@@ -282,7 +315,6 @@ a.link-to-book:hover {
         font-size: 18px;
     }
 
-
     .about-section {
         padding: 3em;
         display: block;
@@ -295,6 +327,19 @@ a.link-to-book:hover {
 
     .row-flex {
         display: block;
+    }
+
+    .form-group p {
+        font-size: 15px;
+    }
+
+    .small-input {
+        width: 40px;
+    }
+
+    .section-intro h2 {
+        font-size: 35px;
+        text-align: center;
     }
 }
 
@@ -335,13 +380,22 @@ a.link-to-book:hover {
         flex-direction: column;
     }
 
+    .section-intro h2 {
+        font-size: 30px;
+        text-align: center;
+    }
+
     .row-flex h3 {
         font-size: 25px;
         text-align: center;
     }
 
     .form-group p {
-        font-size: 15px;
+        font-size: 13px;
+    }
+
+    .small-input {
+        width: 30px;
     }
 
     .opening-time p span,

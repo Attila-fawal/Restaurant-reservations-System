@@ -24,7 +24,10 @@ h2 {
 
 .flex-column-form h3 {
     font-size: 50px;
+    color: rgba(27, 2, 37, 0.833);
 }
+
+
 
 
 
@@ -179,6 +182,7 @@ a.link-to-book:hover {
 }
 
 .flex-column-form {
+    display: flex;
     flex-direction: column;
     flex: 1;
     margin: 60px 10px;
@@ -294,8 +298,28 @@ a.link-to-book:hover {
     width: 50px;
 }
 
+.row-flex {
+    display: flex;
+}
+
+.flex-column-form {
+    flex: 1;
+}
+
+.reservation-text {
+    flex: 1;
+    margin: auto
+}
 
 
+.reservation-text p {
+    font-size: 20px;
+    line-height: 1.5;
+    margin-bottom: 0;
+    font-family: Lato, sans-serif;
+    font-weight: bold;
+    color: black;
+}
 
 @media screen and (max-width: 800px) {
 

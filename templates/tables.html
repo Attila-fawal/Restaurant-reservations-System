@@ -21,10 +21,9 @@ Home - Our Restaurant
                     <p class="card-text">Time: {{ reservation.time }}</p>
                     <p class="card-text">Guests: {{ reservation.guests }}</p>
 
-                    <!-- Add the cancellation form here -->
                     <form method="post" action="{% url 'reservation_cancel' reservation.pk %}">
                         {% csrf_token %}
-                        <input type="submit" value="Cancel Reservation">
+                        <button type="submit" class="btn btn-danger">Cancel Reservation</button>
                     </form>
                 </div>
             </div>

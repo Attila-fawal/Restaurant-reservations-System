@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}
 Home - Our Restaurant
@@ -31,6 +32,18 @@ Home - Our Restaurant
         </div>
     </div>
 </div>
+
+<!-- Load jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Load jQuery UI CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+
+<!-- Load jQuery UI JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<!-- Load Your Custom JavaScript -->
+<script src="{% static 'js/reservations.js' %}"></script>
 
 </body>
 

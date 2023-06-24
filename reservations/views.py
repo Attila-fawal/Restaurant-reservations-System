@@ -12,19 +12,22 @@ def reservation_new(request):
         form = ReservationForm(request.POST)
         if form.is_valid():
             reservation = form.save(commit=False)
-            available_tables = Table.objects.filter(capacity__gte=reservation.capacity)
-            if available_tables.exists():
-                assigned_table = available_tables.first()
-                reservation.table = assigned_table
-                reservation.save()
-                return redirect('reservation_detail', pk=reservation.pk)
+            reservation.capacity = 1  # This could be an input from the user.
+            if reservation.capacity < 1:
+                form.add_error(None, 'Reservation must be for at least one person.')
+                return render(request, 'reservation_form.html', {'form': form})
+            num_tables = -(-reservation.capacity // 2)  # Equivalent to rounding up.
+            available_tables = Table.objects.filter(capacity__gte=2)[:num_tables]
+            if len(available_tables) < num_tables:
+                form.add_error(None, 'Not enough tables are available at the moment. Please try again later.')
             else:
-                form.add_error(None, 'No tables are available at the moment. Please try again later.')
+                reservation.save()  # Need to save reservation before linking it to tables.
+                for table in available_tables:
+                    ReservationTable.objects.create(reservation=reservation, table=table)
+                return redirect('reservation_detail', pk=reservation.pk)
     else:
         form = ReservationForm()
     return render(request, 'reservation_form.html', {'form': form})
-
-
 def reservation_edit(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     if request.method == 'POST':
@@ -63,18 +66,44 @@ class ReservationCreateView(CreateView):
     template_name = 'reservation_form.html'
     success_url = '/'
 
+    class ReservationCreateView(CreateView):
+        model = Reservation
+    fields = ['guests', 'date', 'time']
+    template_name = 'reservation_form.html'
+
     def form_valid(self, form):
         reservation = form.save(commit=False)
         reservation.customer_user = self.request.user
-        available_tables = Table.objects.filter(capacity__gte=reservation.capacity)
-        if available_tables.exists():
-            assigned_table = available_tables.first()
-            reservation.table = assigned_table
-            reservation.save()
-            return super().form_valid(form)
-        else:
-            form.add_error(None, 'No tables are available at the moment. Please try again later.')
+        reservation.capacity = 1  # Assuming this is the number of guests.
+
+        num_guests = reservation.guests
+
+        if num_guests < 1:
+            form.add_error(None, 'Reservation must be for at least one person.')
             return self.form_invalid(form)
+        
+        # Calculate required tables.
+        num_tables_required = ceil(num_guests / 2)
+
+        # Fetch available tables
+        available_tables = Table.objects.filter(is_reserved=False)[:num_tables_required]
+
+        if len(available_tables) < num_tables_required:
+            form.add_error(None, 'Not enough tables are available at the moment. Please try again later.')
+            return self.form_invalid(form)
+        else:
+            reservation.save()  # Save reservation before linking it to tables.
+
+            # Reserve the tables
+            for table in available_tables:
+                table.is_reserved = True
+                table.save()
+                ReservationTable.objects.create(reservation=reservation, table=table)
+            
+            # Add success message
+            messages.success(self.request, f'Reservation made successfully. Reservation ID: {reservation.pk}. We look forward to serving you!')
+
+            return redirect('tables')
 
 
 class CancelReservationView(View):

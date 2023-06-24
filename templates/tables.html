@@ -10,6 +10,13 @@ Home - Our Restaurant
     <h1 class="text-center">Your Reservations</h1>
 </header>
 
+<!-- Display messages -->
+{% messages %}
+<div class="alert alert-success" role="alert">
+    {{ message }}
+</div>
+{% endmessages %}
+
 <main class="container py-5">
     <div class="row">
         {% for reservation in reservations %}
@@ -35,4 +42,5 @@ Home - Our Restaurant
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
 </body>
 
-</html>{% endblock %}
+</html>
+{% endblock %}

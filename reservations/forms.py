@@ -2,7 +2,6 @@ from django import forms
 from django.utils import timezone
 from .models import Reservation
 import datetime
-from django.utils import timezone
 
 
 class ReservationForm(forms.ModelForm):
@@ -10,11 +9,10 @@ class ReservationForm(forms.ModelForm):
 
     class Meta:
         model = Reservation
-        fields = ['date', 'time', 'name', 'email', 'phone_number']
+        fields = ['date', 'time', 'name', 'guests', 'email', 'phone_number']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
         }
-
 
     def clean_date(self):
         date = self.cleaned_data.get('date')

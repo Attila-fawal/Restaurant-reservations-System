@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Reservation Details
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center">Reservation Details</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reservation #{{ reservation.id }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Table {{ reservation.table }}</h6>
+                    <p class="card-text">
+                        <strong>Date:</strong> {{ reservation.date }}<br>
+                        <strong>Time:</strong> {{ reservation.time }}<br>
+                        <strong>Status:</strong> {{ reservation.status }}
+                    </p>
+                    <a href="{% url 'reservation_list' %}" class="card-link">Back to Reservations List</a>
+                    <a href="{% url 'reservation_cancel' reservation.id %}" class="card-link text-danger">Cancel
+                        Reservation</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

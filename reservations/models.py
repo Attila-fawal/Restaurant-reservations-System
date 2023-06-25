@@ -11,14 +11,14 @@ class Customer(models.Model):
 class Table(models.Model):
     number = models.IntegerField()
     capacity = models.IntegerField()
-    is_reserved = models.BooleanField(default=False)  # add this field to track if table is reserved
+    is_reserved = models.BooleanField(default=False)
 
 
 class Reservation(models.Model):
     date = models.DateField()
     time = models.TimeField()
-    guests = models.IntegerField()  # rename capacity to guests
-    customer_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    guests = models.IntegerField()
+    customer_user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(null=True, blank=True)
     phone_number = models.CharField(max_length=15, null=True, blank=True)

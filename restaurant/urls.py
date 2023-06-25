@@ -17,6 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from reservations import views
 from reservations.views import CancelReservationView, ReservationCreateView, TableListView
+from reservations.views import UserLoginView, UserRegisterView
+from django.contrib.auth import views as auth_views
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,6 +29,11 @@ urlpatterns = [
     path('reservation/<int:pk>/', views.reservation_detail, name='reservation_detail'),
     path('reservation/list/', views.reservation_list, name='reservation_list'),
     path('reservation/cancel/<int:pk>/', CancelReservationView.as_view(), name='reservation_cancel'),
-]
+    path('login/', UserLoginView.as_view(), name='login'),
+    path('register/', UserRegisterView.as_view(), name='register'),
+    path('accounts/login/', auth_views.LoginView.as_view(), name='login'),
+    path('reservation/list/', views.reservation_list, name='reservation_list'),
 
+
+]
 

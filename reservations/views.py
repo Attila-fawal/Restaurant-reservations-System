@@ -3,14 +3,14 @@ from django.views.generic import ListView, CreateView
 from django.views.generic.base import View
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from .models import Table, Reservation
+from .models import Table, Reservation, ReservationTable
 from .forms import ReservationForm
 from math import ceil
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
+from django.contrib import messages
 
 
 class TableListView(ListView):
@@ -50,7 +50,7 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
             
             messages.success(self.request, f'Reservation made successfully. Reservation ID: {reservation.pk}. We look forward to serving you!')
 
-            return redirect('tables')
+            return redirect('table_list')
 
 
 class CancelReservationView(View):
@@ -74,11 +74,9 @@ def home(request):
     return render(request, 'home.html')
 
 
-class UserLoginView(LoginView):
-    template_name = 'login.html'
-
-
 class UserRegisterView(CreateView):
     form_class = UserCreationForm
     template_name = 'register.html'
     success_url = reverse_lazy('login')
+
+

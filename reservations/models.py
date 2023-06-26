@@ -34,6 +34,10 @@ class Reservation(models.Model):
     phone_number = models.CharField(max_length=15, null=True, blank=True)
     ordered_items = models.ManyToManyField(Item, blank=True)
 
+    def cancel(self):
+        self.reservationtable_set.all().update(table__is_reserved=False)
+        self.delete()
+
 
 class ReservationTable(models.Model):
     reservation = models.ForeignKey(Reservation, on_delete=models.CASCADE)

@@ -1,22 +1,33 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 from django.utils import timezone
-from .models import Reservation
+from .models import Reservation, Item
 import datetime
+
+class UserRegisterForm(UserCreationForm):
+    email = forms.EmailField()
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
 
 
 class ReservationForm(forms.ModelForm):
-    from .models import Item 
     ordered_items = forms.ModelMultipleChoiceField(
         queryset=Item.objects.all(),
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
+    time = forms.TimeField(input_formats=['%H:%M'])
+
 
     class Meta:
         model = Reservation
         fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
+            'time': forms.TimeInput(format='%H:%M'),
         }
 
     def clean_date(self):

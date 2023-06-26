@@ -5,11 +5,16 @@ import datetime
 
 
 class ReservationForm(forms.ModelForm):
-    time = forms.TimeField(input_formats=['%I:%M %p'], widget=forms.TimeInput(format='%I:%M %p', attrs={'class': 'timepicker'}))
+    from .models import Item 
+    ordered_items = forms.ModelMultipleChoiceField(
+        queryset=Item.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
 
     class Meta:
         model = Reservation
-        fields = ['date', 'time', 'name', 'guests', 'email', 'phone_number']
+        fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
         }

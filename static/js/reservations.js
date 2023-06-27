@@ -31,7 +31,9 @@ $(document).ready(function () {
         $('#id_date').datepicker();
 
         // Create a time picker
-        $('#id_time').timepicker();
+        $('#id_time').timepicker({
+            timeFormat: 'hh:mm p'
+        });
     });
 
 });

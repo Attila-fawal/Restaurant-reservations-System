@@ -21,7 +21,7 @@ from reservations.views import UserRegisterView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
-    path('tables/', views.TableListView.as_view(), name='table_list'),
+    path('tables/', views.reservation_list, name='tables'),
     path('reservation/new/', views.ReservationCreateView.as_view(), name='reservation_new'),
     path('reservation/<int:pk>/', views.reservation_detail, name='reservation_detail'),
     path('reservation/list/', views.reservation_list, name='reservation_list'),

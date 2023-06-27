@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Cancel Reservation
+{% endblock %}
+
+{% block content %}
+<section class="section-intro">
+    <header>
+        <h1>Welcome to Restaurant</h1>
+    </header>
+</section>
+<div class="container mt-5">
+    <h1 class="text-center">Are you sure you want to cancel the reservation?</h1>
+    <div class="row mt-4">
+        <div class="col-md-6 offset-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reservation #{{ object.id }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Table {{ object.table }}</h6>
+                    <p class="card-text">
+                        <strong>Date:</strong> {{ object.date }}<br>
+                        <strong>Time:</strong> {{ object.time }}<br>
+                        <strong>Status:</strong> {{ object.status }}
+                    </p>
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Confirm Cancel" class="btn btn-danger">
+                        <a href="{% url 'reservation_detail' object.id %}" class="btn btn-link">Back to Reservation
+                            Details</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

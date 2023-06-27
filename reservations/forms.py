@@ -5,6 +5,7 @@ from django.utils import timezone
 from .models import Reservation, Item
 import datetime
 
+
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
@@ -19,15 +20,14 @@ class ReservationForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
-    time = forms.TimeField(input_formats=['%H:%M'])
-
-
+    time = forms.TimeField(input_formats=['%I:%M %p'])
+    
     class Meta:
         model = Reservation
         fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
-            'time': forms.TimeInput(format='%H:%M'),
+            'time': forms.TimeInput(format='%I:%M %p', attrs={'class': 'timepicker'}),
         }
 
     def clean_date(self):
@@ -35,3 +35,4 @@ class ReservationForm(forms.ModelForm):
         if date and timezone.localtime() > timezone.make_aware(datetime.datetime.combine(date, datetime.time())):
             raise forms.ValidationError("The date and time cannot be in the past!")
         return date
+

@@ -1,9 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Reservation, Table
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from .forms import ReservationForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
@@ -12,19 +12,19 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 
 
-class TableListView(ListView):
-    model = Table
-    template_name = 'table_list.html'
-
-class ReservationCreateView(SuccessMessageMixin, CreateView):
+class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Reservation
-    fields = ['date', 'time', 'guests']
+    form_class = ReservationForm
     template_name = 'reservation_form.html'
     success_message = "Reservation was created successfully"
 
     def form_valid(self, form):
-        form.instance.customer_user = self.request.user
-        return super().form_valid(form)
+        if self.request.user.is_authenticated:
+            form.instance.customer_user = self.request.user
+            return super().form_valid(form)
+        else:
+            form.add_error(None, "You need to be logged in to make a reservation.")
+            return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse('reservation_detail', kwargs={'pk': self.object.pk})
@@ -36,6 +36,7 @@ class CancelReservationView(SuccessMessageMixin, DeleteView):
     success_url = reverse_lazy('reservation_list')
     success_message = "Reservation was cancelled successfully"
 
+
 def reservation_detail(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     return render(request, 'reservation_detail.html', {'reservation': reservation})
@@ -45,13 +46,16 @@ def reservation_list(request):
     reservations = Reservation.objects.filter(customer_user=request.user)
     return render(request, 'reservation_list.html', {'reservations': reservations})
 
+
 def home(request):
     return render(request, 'home.html')
+
 
 class UserRegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = 'register.html'
     success_url = reverse_lazy('login')
+
 
 def create_sample_menu(request):
     menu = Menu.objects.create(name="Sample Menu")

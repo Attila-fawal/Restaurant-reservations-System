@@ -23,7 +23,6 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
             form.instance.customer_user = self.request.user
             return super().form_valid(form)
         else:
-            form.add_error(None, "You need to be logged in to make a reservation.")
             return super().form_invalid(form)
 
     def get_success_url(self):
@@ -35,6 +34,10 @@ class CancelReservationView(SuccessMessageMixin, DeleteView):
     template_name = 'reservation_confirm_delete.html'
     success_url = reverse_lazy('reservation_list')
     success_message = "Reservation was cancelled successfully"
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, self.success_message)
+        return super(CancelReservationView, self).delete(request, *args, **kwargs)
 
 
 def reservation_detail(request, pk):

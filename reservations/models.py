@@ -7,6 +7,8 @@ class Customer(models.Model):
     phone_number = models.CharField(max_length=15,)
     email = models.EmailField(max_length=200)
 
+    def __str__(self):
+       return self.name
 
 class Table(models.Model):
     number = models.IntegerField()

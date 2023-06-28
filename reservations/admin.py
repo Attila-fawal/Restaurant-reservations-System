@@ -1,12 +1,8 @@
 from django.contrib import admin
-from .models import Customer, Table, Reservation, Menu, Item, ReservationTable  
+from .models import Customer, Table, Reservation, Menu, Item
 
-class ReservationTableInline(admin.TabularInline):  
-    model = ReservationTable
-    extra = 1  
 
 class ReservationAdmin(admin.ModelAdmin):
-    inlines = (ReservationTableInline,)
     list_display = (
         "id",
         "date",
@@ -18,16 +14,19 @@ class ReservationAdmin(admin.ModelAdmin):
         "phone_number",
     )
 
+
 class CustomerAdmin(admin.ModelAdmin):
     list_display = (
         "id",
         "name",
-        "email"
+        "email",
+        'phone_number',
     )
     display = "Customer Admin"
+
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Table)
 admin.site.register(Reservation, ReservationAdmin)  
 admin.site.register(Menu)  
-admin.site.register(Item)  
+admin.site.register(Item)

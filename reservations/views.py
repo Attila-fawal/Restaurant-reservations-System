@@ -22,24 +22,19 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
     success_message = "Reservation was created successfully"
 
     def form_valid(self, form):
-        if self.request.user.is_authenticated:
-            form.instance.customer_user = self.request.user
-            response = super().form_valid(form)
+        form.instance.customer_user = self.request.user
+        form.save()
 
-        try:
-            form.instance.clean()
-        except ValidationError as e:
-            form._errors[NON_FIELD_ERRORS] = ErrorList(e.messages)
-            return super().form_invalid(form)
+        tables_ids = self.request.POST.getlist('tables')
+        for table_id in tables_ids:
+            table = Table.objects.get(id=table_id)
+            if not table.is_reserved:  # Ensure the table is not already reserved
+                table.is_reserved = True
+                table.save()
 
-        tables = form.cleaned_data['tables']  
-        for table in tables:  
-            table.is_reserved = True 
-            table.save() 
+        form.save_m2m()  # Save the m2m fields
 
-            return response
-        else:
-            return super().form_invalid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
         return reverse('reservation_detail', kwargs={'pk': self.object.pk})

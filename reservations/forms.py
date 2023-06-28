@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .models import Reservation, Item
+from .models import Reservation, Item, Table
 import datetime
 
 
@@ -20,11 +20,16 @@ class ReservationForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
+    tables = forms.ModelMultipleChoiceField(
+        queryset=Table.objects.filter(is_reserved=False),
+        widget=forms.CheckboxSelectMultiple,
+        required=False
+    )
     time = forms.TimeField(input_formats=['%I:%M %p'])
     
     class Meta:
         model = Reservation
-        fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items']
+        fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items', 'tables']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
             'time': forms.TimeInput(format='%I:%M %p', attrs={'class': 'timepicker'}),
@@ -35,4 +40,3 @@ class ReservationForm(forms.ModelForm):
         if date and timezone.localtime() > timezone.make_aware(datetime.datetime.combine(date, datetime.time())):
             raise forms.ValidationError("The date and time cannot be in the past!")
         return date
-

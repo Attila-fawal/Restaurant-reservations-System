@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import Reservation, Table
+from .models import Reservation, Table, Menu, Item
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from .forms import ReservationForm, UserRegisterForm
@@ -10,6 +10,9 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
+from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
+from django.forms.utils import ErrorList
+from django.http import HttpResponseRedirect
 
 
 class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -21,12 +24,26 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
     def form_valid(self, form):
         if self.request.user.is_authenticated:
             form.instance.customer_user = self.request.user
-            return super().form_valid(form)
+            response = super().form_valid(form)
+
+        try:
+            form.instance.clean()
+        except ValidationError as e:
+            form._errors[NON_FIELD_ERRORS] = ErrorList(e.messages)
+            return super().form_invalid(form)
+
+        tables = form.cleaned_data['tables']  
+        for table in tables:  
+            table.is_reserved = True 
+            table.save() 
+
+            return response
         else:
             return super().form_invalid(form)
 
     def get_success_url(self):
         return reverse('reservation_detail', kwargs={'pk': self.object.pk})
+
 
 @method_decorator(login_required, name='dispatch')
 class CancelReservationView(SuccessMessageMixin, DeleteView):

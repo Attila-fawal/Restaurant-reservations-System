@@ -25,8 +25,35 @@ class CustomerAdmin(admin.ModelAdmin):
     display = "Customer Admin"
 
 
+class TableAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "capacity"
+        
+    )
+    display = "Table Admin"
+
+
+class MenuAdmin(admin.ModelAdmin):
+    list_display = (
+        "name",
+    )
+    display = "Menu Admin"
+
+
+class ItemAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "price",
+        "menu",
+       
+    )
+    display = "Item Admin"
+
+
 admin.site.register(Customer, CustomerAdmin)
-admin.site.register(Table)
+admin.site.register(Table, TableAdmin)
 admin.site.register(Reservation, ReservationAdmin)  
-admin.site.register(Menu)  
-admin.site.register(Item)
+admin.site.register(Menu, MenuAdmin)  
+admin.site.register(Item, ItemAdmin)

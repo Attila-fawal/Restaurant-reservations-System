@@ -19,11 +19,21 @@ Reservation Details
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Reservation #{{ reservation.id }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Table {{ reservation.table }}</h6>
                     <p class="card-text">
                         <strong>Date:</strong> {{ reservation.date }}<br>
                         <strong>Time:</strong> {{ reservation.time }}<br>
-                        <strong>Status:</strong> {{ reservation.status }}
+                        <strong>Guests:</strong> {{ reservation.guests }}<br>
+                        <strong>Name:</strong> {{ reservation.name }}<br>
+                        <strong>Email:</strong> {{ reservation.email }}<br>
+                        <strong>Phone Number:</strong> {{ reservation.phone_number }}<br>
+                        <strong>Tables:</strong>
+                        {% for table in reservation.tables.all %}
+                        Table {{ table.number }} <br>
+                        {% endfor %}
+                        <strong>Ordered Items:</strong>
+                        {% for item in reservation.ordered_items.all %}
+                        {{ item.name }} - Price: {{ item.price }} <br>
+                        {% endfor %}
                     </p>
                     <a href="{% url 'reservation_list' %}" class="card-link">Back to Reservations List</a>
                     <a href="{% url 'reservation_cancel' reservation.id %}" class="card-link text-danger">Cancel

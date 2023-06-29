@@ -47,10 +47,16 @@ class ReservationForm(forms.ModelForm):
         # Determine the number of tables needed based on guests number
         tables_needed = (guests + 1) // 2
 
+        # Convert time to datetime, add two hours, and convert back to time
+        now = timezone.localtime()
+        time_datetime = datetime.datetime.combine(now, time)
+        new_time_datetime = time_datetime + timedelta(hours=2)
+        new_time = new_time_datetime.time()
+
         # Fetch all tables that are available during the desired reservation time
         available_tables = Table.objects.exclude(
             reservations__date=date,
-            reservations__time__range=(time, time + timedelta(hours=2))
+            reservations__time__range=(time, new_time)
         )
 
         # Check if enough tables are available
@@ -63,4 +69,3 @@ class ReservationForm(forms.ModelForm):
         cleaned_data['tables'] = selected_tables
 
         return cleaned_data
-

@@ -17,11 +17,21 @@ Cancel Reservation
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Reservation #{{ object.id }}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Table {{ object.table }}</h6>
                     <p class="card-text">
                         <strong>Date:</strong> {{ object.date }}<br>
                         <strong>Time:</strong> {{ object.time }}<br>
-                        <strong>Status:</strong> {{ object.status }}
+                        <strong>Guests:</strong> {{ object.guests }}<br>
+                        <strong>Name:</strong> {{ object.name }}<br>
+                        <strong>Email:</strong> {{ object.email }}<br>
+                        <strong>Phone Number:</strong> {{ object.phone_number }}<br>
+                        <strong>Tables:</strong>
+                        {% for table in object.tables.all %}
+                        Table {{ table.number }} <br>
+                        {% endfor %}
+                        <strong>Ordered Items:</strong>
+                        {% for item in object.ordered_items.all %}
+                        {{ item.name }} - Price: {{ item.price }} <br>
+                        {% endfor %}
                     </p>
                     <form method="post">
                         {% csrf_token %}

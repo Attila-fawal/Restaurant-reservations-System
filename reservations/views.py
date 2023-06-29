@@ -24,15 +24,22 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
     def form_valid(self, form):
         form.instance.customer_user = self.request.user
         reservation = form.save(commit=False)  # Do not save m2m fields yet
-
         reservation.save()  # Save the reservation instance first
         reservation.tables.set(form.cleaned_data['tables'])  # Assign the tables
         form.save_m2m()  # Save the m2m fields for ordered_items
 
+        # Assign the object to the view
+        self.object = reservation
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
-        return reverse('reservation_detail', kwargs={'pk': self.object.pk})
+        if self.object is not None:  # Check if object exists
+            return reverse('reservation_detail', kwargs={'pk': self.object.pk})
+        else:
+            # You can return a default URL if self.object doesn't exist
+            # replace 'home' with the name of the URL you want to redirect to
+            return reverse('home')  
+
 
 
 @method_decorator(login_required, name='dispatch')

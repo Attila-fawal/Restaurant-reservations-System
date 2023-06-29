@@ -13,6 +13,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.forms.utils import ErrorList
 from django.http import HttpResponseRedirect
+from django.contrib.auth import login
+from reservations.models import Customer
 
 
 class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -28,8 +30,7 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
         reservation.tables.set(form.cleaned_data['tables'])  # Assign the tables
         form.save_m2m()  # Save the m2m fields for ordered_items
 
-        # Assign the object to the view
-        self.object = reservation
+        self.object = reservation  # Assign the object to the view
         return HttpResponseRedirect(self.get_success_url())
 
     def get_success_url(self):
@@ -37,9 +38,7 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
             return reverse('reservation_detail', kwargs={'pk': self.object.pk})
         else:
             # You can return a default URL if self.object doesn't exist
-            # replace 'home' with the name of the URL you want to redirect to
             return reverse('home')  
-
 
 
 @method_decorator(login_required, name='dispatch')
@@ -61,7 +60,7 @@ def reservation_detail(request, pk):
 
 @login_required
 def reservation_list(request):
-    reservations = Reservation.objects.filter(customer_user=request.user)
+    reservations = Reservation.objects.filter(customer_user=request.user).order_by('-date', '-time')
     return render(request, 'reservation_list.html', {'reservations': reservations})
 
 
@@ -73,6 +72,12 @@ class UserRegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = 'register.html'
     success_url = reverse_lazy('login')
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        Customer.objects.create(user=self.object)  # Create a Customer instance
+        login(self.request, self.object)
+        return response
 
 
 def create_sample_menu(request):

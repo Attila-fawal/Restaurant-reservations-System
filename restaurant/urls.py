@@ -3,6 +3,7 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from reservations import views
 from reservations.views import UserRegisterView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -15,6 +16,4 @@ urlpatterns = [
     path('register/', views.UserRegisterView.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('create_sample_menu/', views.create_sample_menu, name='create_sample_menu'),
-    path('register/', UserRegisterView.as_view(), name='register'),  
-
 ]

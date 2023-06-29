@@ -6,6 +6,8 @@ from django.db.models import Q
 from .models import Reservation, Item, Table
 from datetime import timedelta
 import datetime
+import re
+from django.core.exceptions import ValidationError
 
 
 class UserRegisterForm(UserCreationForm):
@@ -23,6 +25,7 @@ class ReservationForm(forms.ModelForm):
         required=False
     )
     time = forms.TimeField(input_formats=['%I:%M %p'])
+    guests = forms.IntegerField(min_value=1, max_value=40)
 
     class Meta:
         model = Reservation
@@ -31,6 +34,18 @@ class ReservationForm(forms.ModelForm):
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
             'time': forms.TimeInput(format='%I:%M %p', attrs={'class': 'timepicker'}),
         }
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        if phone_number and not phone_number.isdigit():
+            raise ValidationError("Phone number can only contain digits.")
+        return phone_number
+
+    def clean_name(self):
+        name = self.cleaned_data.get('name')
+        if name and bool(re.search(r'\d', name)):
+            raise ValidationError("Name cannot contain numbers.")
+        return name
 
     def clean_date(self):
         date = self.cleaned_data.get('date')

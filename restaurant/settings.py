@@ -33,7 +33,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-xcdhwwj1ji4.ws-us101.gitpod.io', 'localhost']
+ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-2tahwk5dbdg.ws-us101.gitpod.io', 'localhost']
 
 
 # Application definition

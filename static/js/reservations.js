@@ -34,6 +34,9 @@ $(document).ready(function () {
         $('#id_time').timepicker({
             timeFormat: 'hh:mm p'
         });
+        $('#id_time').keypress(function (event) {
+            event.preventDefault();
+        });
     });
 
 });

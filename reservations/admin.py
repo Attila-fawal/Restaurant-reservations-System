@@ -18,11 +18,22 @@ class ReservationAdmin(admin.ModelAdmin):
 class CustomerAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "name",
-        "email",
-        'phone_number',
+        "user",
+        "user_email",
+        
     )
     display = "Customer Admin"
+    
+    def get_queryset(self, request):
+        return super(CustomerAdmin, self).get_queryset(request).select_related('user')
+        
+    def user_email(self, obj):
+        return obj.user.email
+    user_email.short_description = 'Email'
+
+    def user_username(self, obj):
+        return obj.user.username
+    user_username.short_description = 'Username'
 
 
 class TableAdmin(admin.ModelAdmin):

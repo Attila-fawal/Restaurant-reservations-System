@@ -3,9 +3,9 @@ from django.db import models
 
 
 class Customer(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     phone_number = models.CharField(max_length=20)
-    email = models.EmailField(max_length=50)
+    email = models.EmailField(max_length=254)
 
     def __str__(self):
         return f"{self.name} - phone_number: {self.phone_number} - email: {self.email}"
@@ -14,6 +14,7 @@ class Customer(models.Model):
 class Table(models.Model):
     number = models.IntegerField()
     capacity = models.IntegerField()
+    is_reserved = models.BooleanField(default=False)
     
     def __str__(self):
         return f"{self.number} - capacity: {self.capacity}"
@@ -27,7 +28,7 @@ class Menu(models.Model):
 
 
 class Item(models.Model):
-    name = models.CharField(max_length=100)
+    name = models.CharField(max_length=50)
     price = models.DecimalField(max_digits=5, decimal_places=2)
     menu = models.ForeignKey(Menu, on_delete=models.CASCADE, null=True)
     
@@ -39,8 +40,8 @@ class Reservation(models.Model):
     date = models.DateField()
     time = models.TimeField()
     guests = models.IntegerField()
-    name = models.CharField(max_length=30)
-    email = models.EmailField(max_length=50)
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=254)
     phone_number = models.CharField(max_length=20)
     ordered_items = models.ManyToManyField(Item, blank=True)
     tables = models.ManyToManyField(Table)

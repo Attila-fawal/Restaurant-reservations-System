@@ -23,16 +23,11 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView)
 
     def form_valid(self, form):
         form.instance.customer_user = self.request.user
-        form.save()
+        reservation = form.save(commit=False)  # Do not save m2m fields yet
 
-        tables_ids = self.request.POST.getlist('tables')
-        for table_id in tables_ids:
-            table = Table.objects.get(id=table_id)
-            if not table.is_reserved:  # Ensure the table is not already reserved
-                table.is_reserved = True
-                table.save()
-
-        form.save_m2m()  # Save the m2m fields
+        reservation.save()  # Save the reservation instance first
+        reservation.tables.set(form.cleaned_data['tables'])  # Assign the tables
+        form.save_m2m()  # Save the m2m fields for ordered_items
 
         return HttpResponseRedirect(self.get_success_url())
 
@@ -55,6 +50,7 @@ class CancelReservationView(SuccessMessageMixin, DeleteView):
 def reservation_detail(request, pk):
     reservation = get_object_or_404(Reservation, pk=pk)
     return render(request, 'reservation_detail.html', {'reservation': reservation})
+
 
 @login_required
 def reservation_list(request):

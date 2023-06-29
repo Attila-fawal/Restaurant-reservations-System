@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db.models import Q
 from .models import Reservation, Item, Table
+from datetime import timedelta
 import datetime
 
 
@@ -21,16 +22,11 @@ class ReservationForm(forms.ModelForm):
         widget=forms.CheckboxSelectMultiple,
         required=False
     )
-    tables = forms.ModelMultipleChoiceField(
-        queryset=Table.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=True
-    )
     time = forms.TimeField(input_formats=['%I:%M %p'])
 
     class Meta:
         model = Reservation
-        fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items', 'tables']
+        fields = ['date', 'time', 'guests', 'name', 'email', 'phone_number', 'ordered_items']
         widgets = {
             'date': forms.DateInput(attrs={'class': 'datepicker'}),
             'time': forms.TimeInput(format='%I:%M %p', attrs={'class': 'timepicker'}),
@@ -44,18 +40,27 @@ class ReservationForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        tables = cleaned_data.get('tables')
         date = cleaned_data.get('date')
         time = cleaned_data.get('time')
+        guests = cleaned_data.get('guests')
 
-        if tables:
-            for table in tables:
-                overlapping_reservations = Reservation.objects.filter(
-                    Q(date=date) & Q(time=time) & Q(tables=table)
-                )
-                if overlapping_reservations.exists():
-                    self.add_error(None, f"Table {table.number} is already reserved at this time.")
-        else:
-            self.add_error(None, "No tables associated with this reservation.")
+        # Determine the number of tables needed based on guests number
+        tables_needed = (guests + 1) // 2
+
+        # Fetch all tables that are available during the desired reservation time
+        available_tables = Table.objects.exclude(
+            reservations__date=date,
+            reservations__time__range=(time, time + timedelta(hours=2))
+        )
+
+        # Check if enough tables are available
+        if available_tables.count() < tables_needed:
+            self.add_error(None, f"There are not enough tables available at this time.")
+            return cleaned_data
+
+        # Select the necessary number of tables and assign them to the reservation
+        selected_tables = available_tables[:tables_needed]
+        cleaned_data['tables'] = selected_tables
 
         return cleaned_data
+

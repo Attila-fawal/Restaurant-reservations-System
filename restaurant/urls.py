@@ -3,6 +3,8 @@ from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from reservations import views
 from reservations.views import UserRegisterView
+from reservations.views import change_password
+from reservations.views import update_profile
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -16,4 +18,10 @@ urlpatterns = [
     path('register/', views.UserRegisterView.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('create_sample_menu/', views.create_sample_menu, name='create_sample_menu'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
+    path('profile/', update_profile, name='profile'),
+    path('change_password/', change_password, name='change_password'),
+
+
+
 ]

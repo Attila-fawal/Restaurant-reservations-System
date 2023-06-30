@@ -12,7 +12,12 @@ class ReservationAdmin(admin.ModelAdmin):
         "name",
         "email",
         "phone_number",
+        "get_tables",
     )
+
+    def get_tables(self, obj):
+        return ", ".join([str(table.id) for table in obj.tables.all()])
+    get_tables.short_description = 'Table IDs'
 
 
 class CustomerAdmin(admin.ModelAdmin):
@@ -39,10 +44,15 @@ class CustomerAdmin(admin.ModelAdmin):
 class TableAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "capacity"
-        
+        "number",
+        "capacity",
+        "is_reserved",
     )
-    display = "Table Admin"
+
+    def is_reserved(self, obj):
+        return obj.is_reserved
+    is_reserved.short_description = 'Is Reserved'
+    is_reserved.boolean = True
 
 
 class MenuAdmin(admin.ModelAdmin):

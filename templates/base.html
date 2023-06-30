@@ -27,7 +27,16 @@
                 <a href="/reservation/new/">new Reservation</a>
             </li>
             <li class="nav-item">
-                <a href="/tables/">Tables</a>
+                <a href="/tables/">My reservation</a>
+            </li>
+
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+            <li><a href="{% url 'profile' %}">Profile</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            {% endif %}
             </li>
         </ul>
     </nav>

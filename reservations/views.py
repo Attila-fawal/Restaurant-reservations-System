@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Reservation, Table, Menu, Item
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-from .forms import ReservationForm, UserRegisterForm
+from .forms import ReservationForm, UserRegisterForm, ProfileUpdateForm, CustomerProfileUpdateForm  
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -13,8 +16,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.forms.utils import ErrorList
 from django.http import HttpResponseRedirect
-from django.contrib.auth import login
+from django.contrib.auth import login, update_session_auth_hash  
 from reservations.models import Customer
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -68,6 +72,41 @@ def home(request):
     return render(request, 'home.html')
 
 
+
+@login_required
+def update_profile(request):
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, instance=request.user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, f'Your account has been updated!')
+            return redirect('profile')
+
+    else:
+        form = ProfileUpdateForm(instance=request.user)
+
+    return render(request, 'profile.html', {'form': form})
+
+
+@login_required
+def change_password(request):  
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'change_password.html', {
+        'form': form
+    })
+
+
 class UserRegisterView(CreateView):
     form_class = UserRegisterForm
     template_name = 'register.html'
@@ -75,7 +114,7 @@ class UserRegisterView(CreateView):
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        Customer.objects.create(user=self.object)  # Create a Customer instance
+        Customer.objects.create(user=self.object)  
         login(self.request, self.object)
         return response
 

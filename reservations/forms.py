@@ -10,12 +10,36 @@ import re
 from django.core.exceptions import ValidationError
 
 
+from django import forms
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.models import User
+from django.utils import timezone
+from django.db.models import Q
+from .models import Reservation, Item, Table, Customer
+from datetime import timedelta
+import datetime
+import re
+from django.core.exceptions import ValidationError
+
+
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+
 class UserRegisterForm(UserCreationForm):
     email = forms.EmailField()
 
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+
+
+class CustomerProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['name', 'phone_number']
 
 
 class ReservationForm(forms.ModelForm):

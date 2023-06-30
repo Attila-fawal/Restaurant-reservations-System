@@ -11,6 +11,7 @@ h2 {
 
 }
 
+
 .contact-adress {
     display: inline;
     justify-content: space-evenly;
@@ -79,6 +80,8 @@ h2 {
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
     z-index: 1;
+    transform-origin: center;
+    object-fit: cover;
 }
 
 @keyframes section-zoom {
@@ -323,6 +326,11 @@ a.link-to-book:hover {
 
 @media screen and (max-width: 800px) {
 
+    ul.nav-flex-row {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+
     .section-intro {
         height: 500px;
     }
@@ -369,8 +377,19 @@ a.link-to-book:hover {
 
 
 @media screen and (max-width: 500px) {
+
+    .section-intro::after {
+        animation: none
+    }
+
+    ul.nav-flex-row li {
+        font-size: 0.6em;
+        padding: 0.1em;
+    }
+
     .section-intro {
         height: 300px;
+        animation: none
     }
 
     .section-intro h1 {

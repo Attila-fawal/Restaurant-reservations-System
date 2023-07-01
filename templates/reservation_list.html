@@ -13,50 +13,58 @@ Reservations List
 
 <div class="container mt-5">
     <h1 class="text-center">Your Reservations</h1>
-    <div class="col-10 offset-1 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
-        <table class="table mt-4">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Time</th>
-                    <th scope="col">Guests</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Tables</th>
-                    <th scope="col">Ordered Items</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reservation in reservations %}
-                <tr>
-                    <th scope="row">{{ reservation.id }}</th>
-                    <td>{{ reservation.date }}</td>
-                    <td>{{ reservation.time }}</td>
-                    <td>{{ reservation.guests }}</td>
-                    <td>{{ reservation.name }}</td>
-                    <td>
-                        {% for table in reservation.tables.all %}
-                        Table {{ table.number }} <br>
+    <div class="row">
+        <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2">
+            <div class="table-responsive">
+                <!-- Add the table-responsive class here -->
+                <table class="table mt-4">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time</th>
+                            <th scope="col">Guests</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Tables</th>
+                            <th scope="col">Ordered Items</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for reservation in reservations %}
+                        <tr>
+                            <th scope="row">{{ reservation.id }}</th>
+                            <td>{{ reservation.date }}</td>
+                            <td>{{ reservation.time }}</td>
+                            <td>{{ reservation.guests }}</td>
+                            <td>{{ reservation.name }}</td>
+                            <td>
+                                {% for table in reservation.tables.all %}
+                                Table {{ table.number }} <br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% for item in reservation.ordered_items.all %}
+                                {{ item.name }} <br>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                <a href="{% url 'reservation_detail' reservation.id %}"
+                                    class="btn btn-info mb-2">View</a>
+                                <a href="{% url 'reservation_cancel' reservation.id %}"
+                                    class="btn btn-danger">Cancel</a>
+
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="8" class="text-center">You have no reservations.</td>
+                        </tr>
                         {% endfor %}
-                    </td>
-                    <td>
-                        {% for item in reservation.ordered_items.all %}
-                        {{ item.name }} <br>
-                        {% endfor %}
-                    </td>
-                    <td>
-                        <a href="{% url 'reservation_detail' reservation.id %}" class="btn btn-info">View</a>
-                        <a href="{% url 'reservation_cancel' reservation.id %}" class="btn btn-danger">Cancel</a>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="8" class="text-center">You have no reservations.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

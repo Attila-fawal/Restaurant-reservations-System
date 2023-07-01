@@ -119,8 +119,3 @@ class UserRegisterView(CreateView):
         return response
 
 
-def create_sample_menu(request):
-    menu = Menu.objects.create(name="Sample Menu")
-    Item.objects.create(name="Sample Item 1", price=10.00, menu=menu)
-    Item.objects.create(name="Sample Item 2", price=20.00, menu=menu)
-    return HttpResponseRedirect(reverse('home'))

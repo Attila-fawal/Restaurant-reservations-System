@@ -17,11 +17,8 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(template_name='templates/registration/login.html'), name='login'),
     path('register/', views.UserRegisterView.as_view(), name='register'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('create_sample_menu/', views.create_sample_menu, name='create_sample_menu'),
     path('logout/', auth_views.LogoutView.as_view(next_page='/'), name='logout'),
     path('profile/', update_profile, name='profile'),
     path('change_password/', change_password, name='change_password'),
-
-
 
 ]

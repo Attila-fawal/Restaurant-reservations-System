@@ -1,3 +1,5 @@
+/* jshint esversion: 6 */
+
 $(document).ready(function () {
     console.log('jQuery loaded and document is ready');
 

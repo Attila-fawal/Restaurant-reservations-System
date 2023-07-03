@@ -25,13 +25,13 @@ class CustomerAdmin(admin.ModelAdmin):
         "id",
         "user",
         "user_email",
-        
     )
     display = "Customer Admin"
-    
+
     def get_queryset(self, request):
-        return super(CustomerAdmin, self).get_queryset(request).select_related('user')
-        
+        return super(CustomerAdmin, self).get_queryset(
+            request).select_related('user')
+
     def user_email(self, obj):
         return obj.user.email
     user_email.short_description = 'Email'
@@ -68,13 +68,12 @@ class ItemAdmin(admin.ModelAdmin):
         "name",
         "price",
         "menu",
-       
     )
     display = "Item Admin"
 
 
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(Table, TableAdmin)
-admin.site.register(Reservation, ReservationAdmin)  
-admin.site.register(Menu, MenuAdmin)  
+admin.site.register(Reservation, ReservationAdmin)
+admin.site.register(Menu, MenuAdmin)
 admin.site.register(Item, ItemAdmin)

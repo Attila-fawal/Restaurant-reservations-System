@@ -275,7 +275,7 @@ a.link-to-book:hover {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    max-width: auto;
+    max-width: none;
     margin: auto;
 }
 

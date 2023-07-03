@@ -18,6 +18,7 @@ Profile
             {% csrf_token %}
             {{ form.as_p }}
             <a href="{% url 'change_password' %}">Change password</a>
+            <a href="{% url 'delete_account' %}">Delete account</a>
             <button class="btn btn-primary" type="submit">Update</button>
         </form>
         <p>Want to go back to the home page? <a href="{% url 'home' %}">Home</a></p>

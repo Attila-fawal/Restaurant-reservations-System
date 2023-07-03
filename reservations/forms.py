@@ -1,16 +1,4 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth.models import User
-from django.utils import timezone
-from django.db.models import Q
-from .models import Reservation, Item, Table
-from datetime import timedelta
-import datetime
-import re
-from django.core.exceptions import ValidationError
-
-
-from django import forms
 from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -23,12 +11,20 @@ from django.core.exceptions import ValidationError
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """
+    Form class used to update the profile of an existing User instance.
+    It includes only the 'username' and 'email' fields from the User model.
+    """
     class Meta:
         model = User
         fields = ['username', 'email']
 
 
 class UserRegisterForm(UserCreationForm):
+    """
+    Form class used for registering a new user.
+    It extends the UserCreationForm provided by Django, with the addition of an 'email' field.
+    """
     email = forms.EmailField()
 
     class Meta:
@@ -37,12 +33,21 @@ class UserRegisterForm(UserCreationForm):
 
 
 class CustomerProfileUpdateForm(forms.ModelForm):
+    """
+    Form class used to update the profile of an existing Customer instance.
+    It includes only the 'name' and 'phone_number' fields from the Customer model.
+    """
     class Meta:
         model = Customer
         fields = ['name', 'phone_number']
 
 
 class ReservationForm(forms.ModelForm):
+    """
+    Form class used to create or update a Reservation instance.
+    It includes additional validation for 'phone_number', 'name' and 'date' fields.
+    Also includes a complex cleaning method to determine table availability and assign tables to the reservation.
+    """
     ordered_items = forms.ModelMultipleChoiceField(
         queryset=Item.objects.all(),
         widget=forms.CheckboxSelectMultiple,
@@ -60,24 +65,41 @@ class ReservationForm(forms.ModelForm):
         }
 
     def clean_phone_number(self):
+        """
+        Validation for 'phone_number' field.
+        It ensures that the phone number contains only digits.
+        """
         phone_number = self.cleaned_data.get('phone_number')
         if phone_number and not phone_number.isdigit():
             raise ValidationError("Phone number can only contain digits.")
         return phone_number
 
     def clean_name(self):
+        """
+        Validation for 'name' field.
+        It ensures that the name does not contain any numbers.
+        """
         name = self.cleaned_data.get('name')
         if name and bool(re.search(r'\d', name)):
             raise ValidationError("Name cannot contain numbers.")
         return name
 
     def clean_date(self):
+        """
+        Validation for 'date' field.
+        It ensures that the reservation date is not in the past.
+        """
         date = self.cleaned_data.get('date')
         if date and timezone.localtime() > timezone.make_aware(datetime.datetime.combine(date, datetime.time())):
             raise forms.ValidationError("The date and time cannot be in the past!")
         return date
 
     def clean(self):
+        """
+        Overridden clean method.
+        Performs a complex validation to ensure that enough tables are available at the desired reservation time.
+        Also assigns the selected tables to the reservation.
+        """
         cleaned_data = super().clean()
         date = cleaned_data.get('date')
         time = cleaned_data.get('time')

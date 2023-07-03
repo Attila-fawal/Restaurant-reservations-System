@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+import sys
 import dj_database_url
 if os.path.isfile('env.py'):
     import env
@@ -33,7 +34,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-3zq5gex3zne.ws-us101.gitpod.io', 'localhost']
+ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-i0rtw5svtpz.ws-us101.gitpod.io', 'localhost']
 
 
 # Application definition
@@ -112,6 +113,9 @@ LOGIN_REDIRECT_URL = 'reservation_list'
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
+
+if 'test' in sys.argv:
+    DATABASES['default'] = {'ENGINE': 'django.db.backends.sqlite3'}
 
 
 # Password validation

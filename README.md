@@ -1,108 +1,157 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome Attila fawal,
+# Restaurant-reservations-System
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
+The website provides a reservation system for a restaurant, allows customers to create an account and manage or delete their account, make table reservations profile and cancel their reservations. This application is built using the Django framework, leveraging several built-in modules and some custom code.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **September 1, 2021**
+## Site Owner
+The site owner, or administrator, would typically have full control over the system, as provided by Django's built-in administration capabilities. In this context, the site owner can:
 
-## Gitpod Reminders
+- Access, update, and delete all user (Customer) information.
+- Access, update, and delete all reservations.
+- Manage tables, including their number and capacity.
+- Manage menu items, including adding, updating, and removing items.
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+## Customers
+Customers are the users of the website who can register and create their own accounts. The 'User' model from Django's auth module is used to manage user authentication, and a custom 'Customer' model is linked to each User to store additional data.
 
-`python3 -m http.server`
+Each customer has:
 
-A blue button should appear to click: _Make Public_,
+- An associated User from Django's auth module, which manages the customer's authentication.
+- Name, phone number, and email stored in the 'Customer' model.
+As an authenticated customer, a user can:
 
-Another blue button should appear to click: _Open Browser_.
+- Make a reservation: They can specify the date, time, the number of guests, their contact information, and optionally order items in advance.
+- View their reservations: They can see all of their past and upcoming reservations, sorted by date and time.
+- Cancel a reservation: They can cancel a specific reservation if needed.
+- Update their profile: They can change their username, email, name, and phone number.
+- Change their password.
+- or delete their account
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+These actions are performed through the use of various Django views and forms, such as the ReservationCreateView, UserRegisterView, and ReservationForm. Note that to perform any actions on reservations, a customer must be logged in, as indicated by the LoginRequiredMixin on some views and the @login_required decorator on others.
 
-A blue button should appear to click: _Make Public_,
+![Screenshot (57)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/820593a0-abfd-4f52-882c-994df8f03749)
 
-Another blue button should appear to click: _Open Browser_.
+![Screenshot (58)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/fa204057-78f4-4c32-98f4-ec9804ab142d)
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+![Screenshot (60)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/cd7c6773-63ec-4da6-b7e4-7d48b96648bf)
 
-To log into the Heroku toolbelt CLI:
+![Screenshot (66)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/83e2e8f2-e395-42d5-858e-57fe712f034f)
 
-1. Log in to your Heroku account and go to *Account Settings* in the menu under your avatar.
-2. Scroll down to the *API Key* and click *Reveal*
-3. Copy the key
-4. In Gitpod, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+![Screenshot (62)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/7884ca4d-0cfd-4e35-b894-09c304a8afb5)
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+## Models
+There are five models used in this application: Customer, Reservation, Table, Menu, and Item.
 
-------
+- Customer - Represents a customer in the restaurant. Each customer has a name, phone_number, and email.
 
-## Release History
+- Reservation - Represents a reservation made by a customer. It contains date, time, number of guests, name, email, phone number, ordered_items, tables, associated customer, and duration of the reservation.
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+- Table - Represents a table in the restaurant. Each table has a number, capacity, and a reservation status.
 
-**September 1 2021:** Remove `PGHOSTADDR` environment variable.
+- Menu - Represents a menu in the restaurant. Each menu has a name.
 
-**July 19 2021:** Remove `font_fix` script now that the terminal font issue is fixed.
+- Item - Represents an item in the restaurant's menu. Each item has a name, price, and menu it belongs to.
 
-**July 2 2021:** Remove extensions that are not available in Open VSX.
+## Forms
+The application includes five forms: ProfileUpdateForm, UserRegisterForm, CustomerProfileUpdateForm, ReservationForm, and PasswordChangeForm.
 
-**June 30 2021:** Combined the P4 and P5 templates into one file, added the uptime script. See the FAQ at the end of this file.
+- ProfileUpdateForm - Used to update the profile of an existing user.
 
-**June 10 2021:** Added: `font_fix` script and alias to fix the Terminal font issue
+- UserRegisterForm - Used to register a new user.
 
-**May 10 2021:** Added `heroku_config` script to allow Heroku API key to be stored as an environment variable.
+- CustomerProfileUpdateForm - Used to update the profile of an existing customer.
 
-**April 7 2021:** Upgraded the template for VS Code instead of Theia.
+- ReservationForm - Used to make a new reservation. It includes additional validation for 'phone_number', 'name' and 'date' fields. Also includes a complex cleaning method to determine table availability and assign tables to the reservation.
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
+- PasswordChangeForm - Used to change the user's password.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
+## Views
+There are several views handling various user requests:
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+- ReservationCreateView - Handles creating a new reservation.
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+- CancelReservationView - Handles cancelling a reservation.
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
+- reservation_detail - Handles the display of reservation details.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
+- reservation_list - Handles the display of a list of reservations.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
+- home - Handles requests to the homepage.
 
-------
+- update_profile - Handles updating a user's profile.
 
-## FAQ about the uptime script
+- change_password - Handles changing a user's password.
 
-**Why have you added this script?**
+- DeleteAccountView - Handles deleting a user's account.
 
-It will help us to calculate how many running workspaces there are at any one time, which greatly helps us with cost and capacity planning. It will help us decide on the future direction of our cloud-based IDE strategy.
+- UserRegisterView - Handles user registration.
 
-**How will this affect me?**
+![Screenshot (65)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/7260de17-02eb-4eec-97ff-8291c086d2ad)
 
-For everyday usage of Gitpod, it doesn’t have any effect at all. The script only captures the following data:
+![Screenshot (63)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/201ccb62-c1fd-4838-b28f-6b00420513c7)
 
-- An ID that is randomly generated each time the workspace is started.
-- The current date and time
-- The workspace status of “started” or “running”, which is sent every 5 minutes.
+![Screenshot (64)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/67da9a44-f361-468e-aa37-bf2d1ada6e2a)
 
-It is not possible for us or anyone else to trace the random ID back to an individual, and no personal data is being captured. It will not slow down the workspace or affect your work.
+## Error Handling
+Reservation Form:
 
-**So….?**
+The ReservationForm includes custom error handling through the clean methods for the phone_number, name, and date fields:
 
-We want to tell you this so that we are being completely transparent about the data we collect and what we do with it.
+- clean_phone_number checks that the entered phone number contains only digits. If not, it raises a ValidationError.
+- clean_name checks that the entered name does not contain any numbers. If it does, it raises a ValidationError.
+- clean_date ensures that the reservation date is not in the past. If it is, it raises a ValidationError.
 
-**Can I opt out?**
+When a user attempts to create a new reservation,the clean method checks the availability of tables at the requested date and time.
 
-Yes, you can. Since no personally identifiable information is being captured, we'd appreciate it if you let the script run; however if you are unhappy with the idea, simply run the following commands from the terminal window after creating the workspace, and this will remove the uptime script:
+- It first calculates the number of tables needed based on the number of guests (tables_needed).
+- Then it determines the time range for which the reservation would last. The code assumes a reservation duration of two hours, starting from the time the user entered.
+- Next, it fetches all the tables that are currently not reserved for the specified date and time range (available_tables).
 
+- If the number of available tables is less than the number of tables needed, an error is added to the form (self.add_error(None, f"There are not enough tables available at this time.")). This error will be displayed to the user, informing them that there aren't enough tables available at the chosen time, and they should try a different time or reduce the number of guests.
+
+- If there are enough tables available, it selects the necessary number of tables (selected_tables) and assigns them to the reservation (cleaned_data['tables'] = selected_tables).
+
+So in essence,the form prevents double booking by checking the availability of tables at the time of the reservation request, and only allowing the reservation to proceed if enough tables are available. This approach ensures that each table can only be reserved by one party at any given time.
+
+![Screenshot (67)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/1159f9f7-e255-4897-870a-b3feef0de304)
+
+![Screenshot (69)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/38b020fb-bef5-46c7-a56b-02952ba51dfc)
+
+## Bugfix
+Handling Overcapacity in Guest Numbers
+```javascript     
+guests = forms.IntegerField(min_value=1, max_value=40)
 ```
-pkill uptime.sh
-rm .vscode/uptime.sh
-```
+if a user tries to make a reservation for more than 40 guests (or less than 1), Django's form validation will automatically prevent this and raise a validation error, because the number of guests would fall outside of the defined min_value and max_value range.
+Therefore, you don't need any additional code to handle this particular situation, as Django's forms take care of it for you. This is a good example of Django helping to maintain the integrity of your data by ensuring that users can't input values that don't make sense in the context of your application.
+- No more bugs found.
 
-**Anything more?**
+## Future features
+- Automated Reminders: These could be sent via email or SMS.
+- Table Preference: Allow customers to select their preferred table location.
+- Special Requests Handling: Provide a form field for customers to enter any special requests.
+- Analytics Dashboard: an analytics dashboard for the restaurant owner or manager. This could show information like peak reservation times.
 
-Yes! We'd strongly encourage you to look at the source code of the `uptime.sh` file so that you know what it's doing. As future software developers, it will be great practice to see how these shell scripts work.
+## Validator and testing
+- PEP8 style guide and validated HTML and CSS code.
+- I did Manual testing in different browsers and devices.
+- and automated tests test_forms.py, test_models.py, test_views.py.
 
----
+![Screenshot (70)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/e61cc914-964b-4b68-8103-81ee752822c5)
 
-Happy coding!
+## Deployment
+This project was deployed Using Code-Institute-Org/gitpod-full-template.
+
+Steps for deployment
+- Fork or clone this repository.
+- create new heroku account or if you already have one press to create a new app.
+- Add name for your new app And choose the region Go to settings and add buildpacks python and nodeJS In that order.
+- add a Config Var called PORT. Set this to 8000.
+- Link the Heroku app to the repository
+- Click the Deploy
+
+## Credits
+- code Institute For the deployment terminal.
+- ElephantSQL for the database.
+- Cloudinary for the Pictures.
+- fontawesome for the icons.

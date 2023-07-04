@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-attilafawal-restaurantr-oyxj8l9ggqe.ws-us101.gitpod.io',
+    '8000-attilafawal-restaurantr-n1ait5lroan.ws-us101.gitpod.io',
     'restaurant-reservations-system-5f0577a30c22.herokuapp.com',
     'localhost'
 ]

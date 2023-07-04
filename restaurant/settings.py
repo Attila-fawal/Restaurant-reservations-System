@@ -38,7 +38,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
 ALLOWED_HOSTS = [
-    'restaurant-reservations-system.herokuapp.com', 'localhost']
+    'restaurant-reservations-system-5f0577a30c22.herokuapp.com', 'localhost']
 
 # Application definition
 

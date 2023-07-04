@@ -31,14 +31,14 @@ TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '8000-attilafawal-restaurantr-lvxz3hrszeu.ws-us101.gitpod.io',
     'restaurant-reservations-system-5f0577a30c22.herokuapp.com',
     'localhost',
-    'https://ui.dev/amiresponsive',
-]    
+]
+X_FRAME_OPTIONS = 'ALLOW-FROM https://ui.dev/amiresponsive'
 
 # Application definition
 

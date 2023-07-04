@@ -1,12 +1,10 @@
 /* jshint esversion: 6 */
 
 $(document).ready(function () {
-    console.log('jQuery loaded and document is ready');
 
     $(document).ready(function () {
         $("#reservationButton, #reservationButton2").click(function (e) {
             e.preventDefault();
-            console.log("Button clicked");
             swal({
                     title: "Do you have a reservation?",
                     icon: "warning",

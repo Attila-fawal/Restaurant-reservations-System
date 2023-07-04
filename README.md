@@ -3,6 +3,8 @@
 
 The website provides a reservation system for a restaurant, allows customers to create an account and manage or delete their account, make table reservations profile and cancel their reservations. This application is built using the Django framework, leveraging several built-in modules and some custom code.
 
+![Screenshot (71)](https://github.com/Attila-fawal/Restaurant-reservations-System/assets/127791713/f0b6d4b3-9bc6-468f-a497-f152c82e9cac)
+
 ## Site Owner
 The site owner, or administrator, would typically have full control over the system, as provided by Django's built-in administration capabilities. In this context, the site owner can:
 
@@ -142,11 +144,18 @@ Therefore, you don't need any additional code to handle this particular situatio
 ## Deployment
 This project was deployed Using Code-Institute-Org/gitpod-full-template.
 
-Steps for deployment
+The project was deployed to GitHub Pages using the following steps...
+
+- In the GitHub repository, navigate to the Settings tab
+- From the source section drop-down menu, select the Main Branch
+- Once the main branch has been selected, the page will be automatically refreshed with a detailed ribbon display to indicate the successful deployment.
+
+Steps for deployment to heroku:
+
 - Fork or clone this repository.
 - create new heroku account or if you already have one press to create a new app.
-- Add name for your new app And choose the region Go to settings and add buildpacks python and nodeJS In that order.
-- add a Config Var called PORT. Set this to 8000.
+- Add name for your new app And choose the region Go to settings and add buildpacks python.
+- add a Config Var called PORT. Set this to 8000.CLOUDINARY_URL,DATABASE_URL,HEROKU_POSTGRESQL_COBALT_URL,SECRET_KEY.
 - Link the Heroku app to the repository
 - Click the Deploy
 

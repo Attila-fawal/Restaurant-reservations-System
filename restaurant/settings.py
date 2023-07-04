@@ -15,6 +15,7 @@ import dj_database_url
 if os.path.isfile('env.py'):
     import env
 from dotenv import load_dotenv
+import cloudinary
 
 from pathlib import Path
 
@@ -36,9 +37,8 @@ DEBUG = False
 ALLOWED_HOSTS = [
     '8000-attilafawal-restaurantr-lvxz3hrszeu.ws-us101.gitpod.io',
     'restaurant-reservations-system-5f0577a30c22.herokuapp.com',
-    'localhost',
+    'localhost'
 ]
-X_FRAME_OPTIONS = 'ALLOW-FROM https://ui.dev/amiresponsive'
 
 # Application definition
 
@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
+    'cloudinary',
     'reservations',
 ]
 
@@ -67,6 +69,17 @@ ROOT_URLCONF = 'restaurant.urls'
 
 load_dotenv()
 
+cloudinary.config(
+  cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+  api_key=os.getenv('CLOUDINARY_API_KEY'),
+  api_secret=os.getenv('CLOUDINARY_API_SECRET')
+)
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.getenv('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.getenv('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
+}
 
 TEMPLATES = [
     {
@@ -92,12 +105,12 @@ LOGIN_REDIRECT_URL = 'reservation_list'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
+#DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-# }
+#}
 
 DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
@@ -144,7 +157,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 MEDIA_URL = '/media/'
-
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Whitenoise storage for static files

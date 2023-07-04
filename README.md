@@ -155,7 +155,8 @@ Steps for deployment to heroku:
 - Fork or clone this repository.
 - create new heroku account or if you already have one press to create a new app.
 - Add name for your new app And choose the region Go to settings and add buildpacks python.
-- add a Config Var called PORT. Set this to 8000.CLOUDINARY_URL,DATABASE_URL,HEROKU_POSTGRESQL_COBALT_URL,SECRET_KEY.
+- add a Config Var called PORT. Set this to 8000.CLOUDINARY_URL, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET,
+- CLOUDINARY_CLOUD_NAME, DATABASE_URL, HEROKU_POSTGRESQL_COBALT_URL, SECRET_KEY.
 - Link the Heroku app to the repository
 - Click the Deploy
 

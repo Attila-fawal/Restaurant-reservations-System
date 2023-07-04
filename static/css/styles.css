@@ -324,6 +324,11 @@ a.link-to-book:hover {
     color: black;
 }
 
+.alert {
+    position: relative;
+    z-index: 9999;
+}
+
 @media screen and (max-width: 800px) {
 
     ul.nav-flex-row {

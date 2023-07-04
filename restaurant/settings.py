@@ -39,7 +39,7 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = [
     '8000-attilafawal-restaurantr-0tx83zl54o0.ws-us101.gitpod.io',
-    'restaurant-reservations-system-5f0577a30c22.herokuapp.com',
+    'restaurant-reservations-system.herokuapp.com',
     'localhost'
 ]
 

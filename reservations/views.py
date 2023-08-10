@@ -128,6 +128,7 @@ class UserRegisterView(CreateView):
         response = super().form_valid(form)
         Customer.objects.create(user=self.object)
         login(self.request, self.object)
+        messages.success(self.request, "Your account has been created successfully!")
         return response
 
 

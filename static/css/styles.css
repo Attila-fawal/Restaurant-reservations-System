@@ -193,8 +193,8 @@ a.link-to-book:hover {
 
 .btn.btn-primary {
     font-family: 'Big Shoulders Text', cursive;
-    color: #000000;
-    background-color: #ffffff;
+    color: #ffffff;
+    background-color: rgb(50, 1, 48);
     text-transform: uppercase;
     font-size: 35px;
     padding: 15px 15px;
@@ -203,7 +203,7 @@ a.link-to-book:hover {
 }
 
 .btn.btn-primary:hover {
-    background-color: #c0c0c0;
+    background-color: #5ec07c;
 }
 
 .opening-time,
@@ -248,7 +248,7 @@ a.link-to-book:hover {
 }
 
 .footer {
-    background-color: rgba(27, 2, 37, 0.833);
+    background-color: rgba(54, 0, 75, 0.833);
 }
 
 

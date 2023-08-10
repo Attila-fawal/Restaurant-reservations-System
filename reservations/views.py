@@ -1,30 +1,28 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.messages.views import SuccessMessageMixin
 from .models import Reservation, Table, Menu, Item
 from django.urls import reverse, reverse_lazy
 from django.contrib import messages
-from .forms import ReservationForm, UserRegisterForm
-from .forms import ProfileUpdateForm, CustomerProfileUpdateForm
+from .forms import ReservationForm, UserRegisterForm, ProfileUpdateForm, CustomerProfileUpdateForm
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from django.core.exceptions import ValidationError, NON_FIELD_ERRORS
 from django.forms.utils import ErrorList
 from django.http import HttpResponseRedirect
 from django.contrib.auth import login, update_session_auth_hash
-from reservations.models import Customer
-from django.contrib.auth.forms import PasswordChangeForm
+from .models import Customer
 from django.contrib.auth import get_user_model
-from django.views.generic.edit import DeleteView
+from django.views.generic.edit import FormView
+
 
 User = get_user_model()
 
 
-class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin,
-                            CreateView):
+class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Reservation
     form_class = ReservationForm
     template_name = 'reservation_form.html'
@@ -34,8 +32,12 @@ class ReservationCreateView(LoginRequiredMixin, SuccessMessageMixin,
         form.instance.customer_user = self.request.user
         reservation = form.save(commit=False)
         reservation.save()
-        reservation.tables.set(form.cleaned_data['tables'])
+
+        # Ensure 'tables' key exists in cleaned_data before accessing
+        if 'tables' in form.cleaned_data:
+            reservation.tables.set(form.cleaned_data['tables'])
         form.save_m2m()
+
         self.object = reservation
         return HttpResponseRedirect(self.get_success_url())
 
@@ -140,3 +142,34 @@ class DeleteAccountView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, self.success_message)
         return super().delete(request, *args, **kwargs)
+
+
+class ReservationUpdateView(UpdateView):
+    model = Reservation
+    form_class = ReservationForm
+    template_name = 'reservation_form.html'
+
+    def get_initial(self):
+        initial = super().get_initial()
+        reservation = self.get_object()
+        initial['date'] = ""
+        initial['time'] = ""
+        return initial
+
+    def form_valid(self, form):
+        form.instance.customer_user = self.request.user
+        reservation = form.save(commit=False)
+        reservation.save()
+
+        # Ensure 'tables' key exists in cleaned_data before accessing
+        if 'tables' in form.cleaned_data:
+            reservation.tables.set(form.cleaned_data['tables'])
+        form.save_m2m()
+
+        self.object = reservation
+        messages.success(self.request, "Reservation successfully updated!")
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('reservation_detail', kwargs={'pk': self.object.pk})
+

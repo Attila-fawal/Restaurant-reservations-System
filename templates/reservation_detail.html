@@ -28,15 +28,17 @@ Reservation Details
                         <strong>Phone Number:</strong> {{ reservation.phone_number }}<br>
                         <strong>Tables:</strong>
                         {% for table in reservation.tables.all %}
-                        Table {{ table.number }} <br>
+                        Table{{ table.number }}<br>
+                        {% empty %}
+                        No tables reserved.
                         {% endfor %}
-                        <strong>Ordered Items:</strong>
-                        {% for item in reservation.ordered_items.all %}
-                        {{ item.name }} - Price: {{ item.price }} <br>
-                        {% endfor %}
+                        <strong>Ordered
+                            Items:</strong>{% for item in reservation.ordered_items.all %}{{ item.name }}-Price:
+                        {{ item.price }} <br>{% endfor %}
                     </p>
-                    <a href="{% url 'reservation_list' %}" class="card-link">Back to Reservations List</a>
-                    <a href="{% url 'reservation_cancel' reservation.id %}" class="card-link text-danger">Cancel
+                    <a href="{% url 'reservation_list' %}" class="btn-primary">Back to Reservations List</a>
+                    <a href="{% url 'edit_reservation' reservation.id %}" class="btn btn-info">Edit Reservation</a>
+                    <a href="{% url 'reservation_cancel' reservation.id %}" class="btn btn-danger">Cancel
                         Reservation</a>
                 </div>
             </div>

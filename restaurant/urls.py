@@ -1,3 +1,4 @@
+from .views import handler404
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
@@ -5,6 +6,7 @@ from reservations import views
 from reservations.views import (
     UserRegisterView, change_password, update_profile
 )
+from django.urls import include
 from reservations.views import DeleteAccountView
 
 
@@ -44,7 +46,10 @@ urlpatterns = [
     ),
     path('profile/', update_profile, name='profile'),
     path('change_password/', change_password, name='change_password'),
-    path('delete_account/', DeleteAccountView.as_view(), name='delete_account')
+    path('delete_account/', DeleteAccountView.as_view(), name='delete_account'),
+    path('reservations/', include('reservations.urls')),
 
 
 ]
+
+handler404 = 'restaurant.views.handler404'

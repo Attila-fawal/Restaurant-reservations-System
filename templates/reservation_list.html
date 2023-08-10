@@ -38,16 +38,8 @@ Reservations List
                             <td>{{ reservation.time }}</td>
                             <td>{{ reservation.guests }}</td>
                             <td>{{ reservation.name }}</td>
-                            <td>
-                                {% for table in reservation.tables.all %}
-                                Table {{ table.number }} <br>
-                                {% endfor %}
-                            </td>
-                            <td>
-                                {% for item in reservation.ordered_items.all %}
-                                {{ item.name }} <br>
-                                {% endfor %}
-                            </td>
+                            <td>{% for table in reservation.tables.all %}Table {{ table.number }} <br>{% endfor %}</td>
+                            <td>{% for item in reservation.ordered_items.all %}{{ item.name }} <br>{% endfor %}</td>
                             <td>
                                 <a href="{% url 'reservation_detail' reservation.id %}"
                                     class="btn btn-info mb-2">View</a>

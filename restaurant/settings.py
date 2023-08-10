@@ -37,7 +37,7 @@ DEBUG = True
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
-ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-viyrzs2y6ea.ws-us102.gitpod.io']
+ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-ydute3wp61n.ws-us102.gitpod.io']
 # Application definition
 
 

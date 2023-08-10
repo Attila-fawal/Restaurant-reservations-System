@@ -111,33 +111,31 @@ class ReservationForm(forms.ModelForm):
             )
         return date
 
+
     def clean(self):
-        """
-        Overridden clean method.
-        Ensures enough tables are available
-        at the desired reservation time. Assigns the selected tables.
-        """
         cleaned_data = super().clean()
         date = cleaned_data.get('date')
         time = cleaned_data.get('time')
         guests = cleaned_data.get('guests')
 
-        # Determine needed tables based on guests number
+        if not date or not time:
+            return cleaned_data
+
         tables_needed = (guests + 1) // 2
 
-        # Convert time to datetime, add two hours, and convert back
         now = timezone.localtime()
         time_datetime = datetime.datetime.combine(now, time)
-        new_time_datetime = time_datetime + timedelta(hours=2)
+        new_time_datetime = time_datetime + timedelta(hours=2)  
         new_time = new_time_datetime.time()
 
-        # Fetch all tables available during the desired reservation time
         available_tables = Table.objects.exclude(
             reservations__date=date,
             reservations__time__range=(time, new_time)
         )
 
-        # Check if enough tables are available
+        if self.instance.pk:
+            available_tables = available_tables.exclude(reservations=self.instance)
+
         if available_tables.count() < tables_needed:
             self.add_error(
                 None,
@@ -145,7 +143,6 @@ class ReservationForm(forms.ModelForm):
             )
             return cleaned_data
 
-        # Select necessary tables and assign them to the reservation
         selected_tables = available_tables[:tables_needed]
         cleaned_data['tables'] = selected_tables
 

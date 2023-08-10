@@ -196,8 +196,8 @@ a.link-to-book:hover {
     color: #ffffff;
     background-color: rgb(50, 1, 48);
     text-transform: uppercase;
-    font-size: 35px;
-    padding: 15px 15px;
+    font-size: 20px;
+    padding: 10px 10px;
     letter-spacing: 2px;
     border: 0;
 }
@@ -205,6 +205,45 @@ a.link-to-book:hover {
 .btn.btn-primary:hover {
     background-color: #5ec07c;
 }
+
+
+.btn-primary {
+    font-family: 'Big Shoulders Text',
+        cursive;
+    color: #ffffff;
+    background-color: rgb(50, 1, 48);
+    font-size: 18px;
+    padding: 8px 10px;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    border: 0;
+
+}
+
+.btn-primary:hover {
+    background-color: #5ec07c;
+    text-decoration: none;
+}
+
+.btn.btn-link {
+    font-family: 'Big Shoulders Text', cursive;
+    color: #ffffff;
+    background-color: rgb(50, 1, 48);
+    font-size: 18px;
+    padding: 6px 10px;
+    letter-spacing: 1px;
+    border-radius: 3px;
+    border: 0;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.btn.btn-link:hover {
+    background-color: #5ec07c;
+}
+
+
 
 .opening-time,
 .contact-adress {
@@ -336,6 +375,8 @@ a.link-to-book:hover {
         justify-content: space-around;
     }
 
+
+
     .section-intro {
         height: 500px;
     }
@@ -388,8 +429,13 @@ a.link-to-book:hover {
     }
 
     ul.nav-flex-row li {
-        font-size: 0.6em;
-        padding: 0.1em;
+        font-size: 0.5em;
+        padding: 0.1em
+    }
+
+    .btn-primary {
+
+        margin-top: 5px;
     }
 
     .section-intro {
@@ -398,7 +444,7 @@ a.link-to-book:hover {
     }
 
     .section-intro h1 {
-        font-size: 2em;
+        font-size: 1.5em;
     }
 
     .about-section {
@@ -450,5 +496,19 @@ a.link-to-book:hover {
     .contact-adress p span {
         font-size: 15px;
         text-align: center;
+    }
+
+    .btn-info {
+        margin-top: 10px;
+
+    }
+
+    .btn-danger {
+        margin-top: 10px;
+
+    }
+
+    .btn.btn-link {
+        margin-top: 10px;
     }
 }

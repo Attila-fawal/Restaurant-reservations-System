@@ -2,6 +2,10 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import timedelta
 from django.utils import timezone
+from django.views.generic.edit import UpdateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.urls import reverse
 
 
 class Customer(models.Model):

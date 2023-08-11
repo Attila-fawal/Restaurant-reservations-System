@@ -67,9 +67,7 @@ class TestForms(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEquals(
             form.errors['date'], ['The date and time cannot be in the past!']
-        )
-        
+        )     
 # Test Analysis and Conclusion:
-# All tests have passed. The UserRegisterForm, CustomerProfileUpdateForm, and ReservationForm 
+# All tests have passed. The UserRegisterForm, CustomerProfileUpdateForm, and ReservationForm
 # are all functioning as expected based on these test cases.
-

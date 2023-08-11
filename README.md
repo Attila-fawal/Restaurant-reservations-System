@@ -1,7 +1,7 @@
 
 # Restaurant-reservations-System
 
-The website provides a reservation system for a restaurant, allows customers to create an account and manage or delete their account, make table reservations profile and cancel their reservations. This application is built using the Django framework, leveraging several built-in modules and some custom code.
+The website provides a reservation system for a restaurant, allows customers to create an account and manage or delete their account, make table reservations profile and cancel or update their reservations. This application is built using the Django framework, leveraging several built-in modules and some custom code.
 
 ![Screenshot (71)](https://github.com/Attila-fawal/Restaurant-reservations-System/assets/127791713/f0b6d4b3-9bc6-468f-a497-f152c82e9cac)
 
@@ -24,6 +24,7 @@ As an authenticated customer, a user can:
 
 - Make a reservation: They can specify the date, time, the number of guests, their contact information, and optionally order items in advance.
 - View their reservations: They can see all of their past and upcoming reservations, sorted by date and time.
+- Update their reservations: They can see all of their reservation In the reservation list and update If needed.
 - Cancel a reservation: They can cancel a specific reservation if needed.
 - Update their profile: They can change their username, email, name, and phone number.
 - Change their password.
@@ -33,9 +34,9 @@ These actions are performed through the use of various Django views and forms, s
 
 ![Screenshot (57)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/820593a0-abfd-4f52-882c-994df8f03749)
 
-![Screenshot (58)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/fa204057-78f4-4c32-98f4-ec9804ab142d)
+![Screenshot (94)](https://github.com/Attila-fawal/Restaurant-reservations-System/assets/127791713/f0c2d544-e3a0-48f2-9ad1-c96fcbf7daf1)
 
-![Screenshot (60)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/cd7c6773-63ec-4da6-b7e4-7d48b96648bf)
+![Screenshot (91)](https://github.com/Attila-fawal/Restaurant-reservations-System/assets/127791713/2f581f61-2816-46e3-9b61-00c5c05a3ffd)
 
 ![Screenshot (66)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/83e2e8f2-e395-42d5-858e-57fe712f034f)
 
@@ -71,6 +72,8 @@ The application includes five forms: ProfileUpdateForm, UserRegisterForm, Custom
 There are several views handling various user requests:
 
 - ReservationCreateView - Handles creating a new reservation.
+
+- ReservationUpdateView - Handles updating a reservation.
 
 - CancelReservationView - Handles cancelling a reservation.
 
@@ -115,9 +118,9 @@ When a user attempts to create a new reservation,the clean method checks the ava
 
 So in essence,the form prevents double booking by checking the availability of tables at the time of the reservation request, and only allowing the reservation to proceed if enough tables are available. This approach ensures that each table can only be reserved by one party at any given time.
 
-![Screenshot (67)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/1159f9f7-e255-4897-870a-b3feef0de304)
+![Screenshot (92)](https://github.com/Attila-fawal/Restaurant-reservations-System/assets/127791713/72d0d992-9393-4583-bbc6-9a3c4201914c)
 
-![Screenshot (69)](https://github.com/Attila-fawal/Battleships-game/assets/127791713/38b020fb-bef5-46c7-a56b-02952ba51dfc)
+![Screenshot (93)](https://github.com/Attila-fawal/Restaurant-reservations-System/assets/127791713/c364698d-d988-43a7-8b4b-4958ef625a40)
 
 ## Bugfix
 Handling Overcapacity in Guest Numbers

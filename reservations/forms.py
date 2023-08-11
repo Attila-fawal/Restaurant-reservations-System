@@ -111,7 +111,6 @@ class ReservationForm(forms.ModelForm):
             )
         return date
 
-
     def clean(self):
         cleaned_data = super().clean()
         date = cleaned_data.get('date')
@@ -125,7 +124,7 @@ class ReservationForm(forms.ModelForm):
 
         now = timezone.localtime()
         time_datetime = datetime.datetime.combine(now, time)
-        new_time_datetime = time_datetime + timedelta(hours=2)  
+        new_time_datetime = time_datetime + timedelta(hours=2)
         new_time = new_time_datetime.time()
 
         available_tables = Table.objects.exclude(

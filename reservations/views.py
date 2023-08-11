@@ -173,4 +173,3 @@ class ReservationUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse('reservation_detail', kwargs={'pk': self.object.pk})
-

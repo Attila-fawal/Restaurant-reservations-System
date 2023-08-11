@@ -37,7 +37,7 @@ DEBUG = False
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 
-ALLOWED_HOSTS = ['8000-attilafawal-restaurantr-zagf45w4l80.ws-us103.gitpod.io']
+ALLOWED_HOSTS = ['restaurant-reservations-system-5f0577a30c22.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [

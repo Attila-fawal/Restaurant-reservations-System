@@ -9,12 +9,15 @@
 <div class="container h-100">
     <div class="row h-100">
         <div class="col-7 col-md-6 my-auto">
-            <h1 class="display-4 logo-font text-black">
-                The page you are looking for isn't available
-            </h1>
+            <div class="position-fixed w-100 h-100 d-flex align-items-center justify-content-center"
+                style="z-index: 9999; background-color: rgba(255, 255, 255, 0.9);">
+                <h1 class="display-4 text-black">
+                    The page you are looking for isn't available
+                </h1>
+            </div>
             <div class="my-5">
                 <h4>
-                    <a href="{% url 'home' %}" class="shop-now-button btn btn-lg rounded-0 text-uppercase py-3">
+                    <a href="{% url 'home' %}" class="btn-primary btn-sm">
                         Return to home page
                     </a>
                 </h4>
